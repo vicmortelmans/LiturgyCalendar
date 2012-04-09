@@ -5,6 +5,10 @@
 
   <xsl:variable name="date"/>
   
+  <xsl:template match="context" mode="c2d">
+    <xsl:apply-templates/>
+  </xsl:template>
+
   <xsl:template match="liturgicalday[coordinates = $coordinates]" mode="c2d">
     <date>
         <xsl:apply-templates select="daterules"/><!-- liturgy.calendar.lib.xslt kicking in -->
