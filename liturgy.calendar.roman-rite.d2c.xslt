@@ -14,6 +14,10 @@
     <map number="0" cycle="II"/>
   </xsl:variable>
 
+  <xsl:template match="context" mode="d2c">
+    <xsl:apply-templates/>
+  </xsl:template>
+
   <xsl:template match="liturgicaldays" mode="d2c">
     <xsl:variable name="results">
       <xsl:apply-templates mode="d2c"/>

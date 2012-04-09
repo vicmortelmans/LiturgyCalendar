@@ -23,9 +23,23 @@
   <xsl:param name="coordinates" select="'A011'"/>
   <xsl:param name="year" select="'2011'"/>
 
-  <xsl:variable name="ruleset" select="doc($ruleset)"/>
+  <xsl:variable name="ruleset">
+    <xsl:choose>
+      <xsl:when test="$ruleset">
+        <xsl:copy-of select="doc($ruleset)"/>
+        <xsl:message>Reading ruleset from <xsl:value-of select="$ruleset"/></xsl:message>
+        <xsl:if test="//ruleset and $ruleset != //ruleset and $cache != 'no'">
+          <xsl:message>Cache calls will use <xsl:value-of select="$ruleset"/></xsl:message>
+        </xsl:if>
+      <xsl:when>
+      <xsl:otherwise>
+        <xsl:copy-of select="doc(//ruleset)"/>
+        <xsl:message>Reading ruleset from <xsl:value-of select="//ruleset"/></xsl:message>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
 
-  <xsl:template match="/"><!-- matches the root of the dummy input XML file -->
+  <xsl:template match="/"><!-- matches the root of the input XML file -->
     <xsl:variable name="context">
       <context>
         <xsl:if test="$mode = 'd2c'">

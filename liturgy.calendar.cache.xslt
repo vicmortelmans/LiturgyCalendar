@@ -25,60 +25,66 @@
       </xsl:when>
       <xsl:otherwise>
         <xsl:variable name="url">
-          <xsl:text>http://xslt.childrensmissal.appspot.com/getCoordinates?output=xml&amp;set=</xsl:text>
-          <xsl:value-of select="encode-for-uri(@set)"/>
-          <xsl:text>&amp;date=</xsl:text> 
-      <xsl:value-of select="$date"/>
-      <xsl:text>&amp;options=</xsl:text>
-      <xsl:value-of select="$options"/>
-      <xsl:text>&amp;form=</xsl:text>
-      <xsl:value-of select="$form"/>
-
+          <xsl:call-template name="replace">
+            <xsl:with-param name="string" select="//cacheservice"/>
+            <xsl:with-param name="parametergroup">
+              <parametergroup>
+                <url>
+                  <xsl:call-template name="replace">
+                    <xsl:with-param name="encode" select="yes"/>
+                    <xsl:with-param name="string" select="//cacheserviceurl"/>
+                    <xsl:with-param name="parametergroup">
+                      <parametergroup>
+                        <mode><xsl:value-of select="$mode"/></mode>
+                        <cache><xsl:value-of select="$cache"/></cache>
+                        <date><xsl:if test="$date"><xsl:value-of select="$date"/></xsl:if></date>
+                        <set><xsl:if test="$set"><xsl:value-of select="$set"/></xsl:if></set>
+                        <score><xsl:if test="$score"><xsl:value-of select="$score"/></xsl:if></score>
+                        <coordinates><xsl:if test="$coordinates"><xsl:value-of select="$coordinates"/></xsl:if></coordinates>
+                        <year><xsl:if test="$year"><xsl:value-of select="$year"/></xsl:if></year>
+                      </parametergroup>
+                    </xsl:with-param>
+                  </xsl:call-template>
+                </url>
+              </parametergroup>
+            </xsl:with-param>
+          </xsl:call-template>
         </xsl:variable>
-        <xsl:variable name="cacheurl">
-          <xsl:choose>
-            <xsl:when test="$cache = 'eXist'">
-              <xsl:text>http://ec2-46-137-56-166.eu-west-1.compute.amazonaws.com:8080/exist/rest//db/cache/cache-m-light.xq?url=</xsl:text>
-	        </xsl:when>
-	        <xsl:otherwise> 
-              <xsl:text>http://prentenmissaal.my28msec.com/cache/cache?url=</xsl:text>
-            </xsl:otherwise>
-          </xsl:choose>
-
+        <xsl:variable name="data">
+          <xsl:value-of select="document($url)"/>
         </xsl:variable>
-        
+        <xsl:copy-of select="$data"/>
+        <xsl:message>REST call to <xsl:value-of select="$url"/></xsl:message>
+        <xsl:message>Result: <xsl:copy-of select="$data"/></xsl:message>
       </xsl:otherwise>
-
-<xsl:variable name="cachedrest">
-      <xsl:choose>
-    <xsl:when test="$cache = 'yes'">
-          <xsl:choose>
-        <xsl:when test="$cacheserver = '28msec'">
-	      <xsl:text>http://prentenmissaal.my28msec.com/cache/cache?url=</xsl:text>
-	    </xsl:when>
-	    <xsl:otherwise> 
-	      <xsl:text>http://ec2-46-137-56-166.eu-west-1.compute.amazonaws.com:8080/exist/rest//db/cache/cache-m-light.xq?url=</xsl:text>
-	    </xsl:otherwise>
-          </xsl:choose>
-	  <xsl:value-of select="encode-for-uri($rest)"/>
-	  <xsl:text>&amp;expiration=0</xsl:text>
-	  <xsl:text>&amp;doc=</xsl:text>
-          <xsl:value-of select="$form"/>
-	  <xsl:text>&amp;cacheserver=</xsl:text>
-          <xsl:value-of select="$cacheserver"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:value-of select="$rest"/>
-	  <xsl:text>&amp;cache=no</xsl:text>
-	</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:variable name="cachedrestdata">
-      <xsl:value-of select="document($cachedrest)"/>
-    </xsl:variable>
-    <xsl:copy-of select="$cachedrestdata"/>
-    <xsl:message>REST call to <xsl:value-of select="$cachedrest"/> (cache = <xsl:value-of select="$cache"/>)</xsl:message>
-    <xsl:message><xsl:copy-of select="$cachedrestdata"/></xsl:message>
+    </xsl:choose>
   </xsl:template>
+
+  <xsl:template name="replace"><!-- copied from liturgical.calendar.build-ruleset.xslt and added encoding func -->
+    <xsl:param name="string"/>
+    <xsl:param name="parametergroup"/>
+    <xsl:param name="encode" select="no"/>
+    <xsl:choose>
+      <xsl:when test="not(matches($string,'\$'))">
+        <xsl:choose>
+          <xsl:when test="$encode = 'yes'">
+            <xsl:value-of select="encode-for-uri($string)"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$string"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="replace">
+          <xsl:with-param name="string" select="replace($string,concat('\$',local-name($parametergroup/*[1])),$parametergroup/*[1])"/>
+          <xsl:with-param name="parametergroup">
+            <xsl:copy-of select="$parametergroup/*[position() &gt; 1]"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
 
 </xsl:stylesheet>
