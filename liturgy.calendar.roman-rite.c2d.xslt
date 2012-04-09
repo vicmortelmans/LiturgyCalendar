@@ -3,8 +3,6 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:fn="http://www.w3.org/2005/xpath-functions">
 
-  <xsl:variable name="date"/>
-  
   <xsl:template match="context" mode="c2d">
     <xsl:apply-templates/>
   </xsl:template>

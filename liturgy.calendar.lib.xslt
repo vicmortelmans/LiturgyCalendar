@@ -8,7 +8,7 @@
                  -->
   <xsl:template match="daterules">
     <xsl:choose>
-    <xsl:when test="not(@option) or (@option and matches($options,@option))">
+    <xsl:when test="not(@option) or (@option and matches(//options,@option))">
         <xsl:message>daterules for <xsl:value-of select="../name"/> (year : <xsl:value-of select="$year"/>)</xsl:message>
         <xsl:apply-templates/>
       </xsl:when>
@@ -221,22 +221,11 @@
          OUTPUT yyyy-mm-dd : the date returned by rendering @name's daterules -->
     <xsl:message>relative-to(name : <xsl:value-of select="@name"/>)</xsl:message>
     <xsl:variable name="coordinates" select="//liturgicalday[name=current()/@name]/coordinates"/>
-    <xsl:variable name="rest">
-        <xsl:text>http://xslt.childrensmissal.appspot.com/getDate2?output=xml&amp;year=</xsl:text>
-        <xsl:value-of select="$year"/>
-        <xsl:text>&amp;coordinates=</xsl:text>
-        <xsl:value-of select="$coordinates"/>
-        <xsl:text>&amp;options=</xsl:text>
-	    <xsl:value-of select="$options"/>
-        <xsl:text>&amp;form=</xsl:text>
-        <xsl:value-of select="$form"/>
-    </xsl:variable>
-    <xsl:variable name="cachedrest">
-      <xsl:call-template name="cache">
-        <xsl:with-param name="rest" select="$rest"/>
-      </xsl:call-template>
-    </xsl:variable>
-    <xsl:value-of select="$cachedrest"/>
+    <xsl:call-template name="cache">
+      <xsl:with-param name="mode" select="'c2d'"/>
+      <xsl:with-param name="year" select="$year"/>
+      <xsl:with-param name="coordinates" select="$coordinates"/>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="relative-to-next-years">
@@ -245,22 +234,11 @@
          OUTPUT yyyy-mm-dd : the date returned by rendering @name's daterules in next year-->
     <xsl:message>relative-to-next-years(name : <xsl:value-of select="@name"/>)</xsl:message>
     <xsl:variable name="coordinates" select="//liturgicalday[name=current()/@name]/coordinates"/>
-    <xsl:variable name="rest">
-        <xsl:text>http://xslt.childrensmissal.appspot.com/getDate2?output=xml&amp;year=</xsl:text>
-        <xsl:value-of select="$year + 1"/>
-        <xsl:text>&amp;coordinates=</xsl:text>
-        <xsl:value-of select="$coordinates"/>
-        <xsl:text>&amp;options=</xsl:text>
-        <xsl:value-of select="$options"/>
-        <xsl:text>&amp;form=</xsl:text>
-        <xsl:value-of select="$form"/>
-    </xsl:variable>
-    <xsl:variable name="cachedrest">
-      <xsl:call-template name="cache">
-        <xsl:with-param name="rest" select="$rest"/>
-      </xsl:call-template>
-    </xsl:variable>
-    <xsl:value-of select="$cachedrest"/>
+    <xsl:call-template name="cache">
+      <xsl:with-param name="mode" select="'c2d'"/>
+      <xsl:with-param name="year" select="$year + 1"/>
+      <xsl:with-param name="coordinates" select="$coordinates"/>
+    </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="transfer">
@@ -335,22 +313,11 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="rest">
-     <xsl:text>http://xslt.childrensmissal.appspot.com/getCoordinates?output=xml&amp;set=</xsl:text>
-      <xsl:value-of select="encode-for-uri(@set)"/>
-      <xsl:text>&amp;date=</xsl:text> 
-      <xsl:value-of select="$date"/>
-      <xsl:text>&amp;options=</xsl:text>
-      <xsl:value-of select="$options"/>
-      <xsl:text>&amp;form=</xsl:text>
-      <xsl:value-of select="$form"/>
-    </xsl:variable>
-    <xsl:variable name="cachedrest">
-      <xsl:call-template name="cache">
-        <xsl:with-param name="rest" select="$rest"/>
-      </xsl:call-template>
-    </xsl:variable>
-    <xsl:value-of select="$cachedrest"/> 
+    <xsl:call-template name="cache">
+      <xsl:with-param name="mode" select="'d2c'"/>
+      <xsl:with-param name="set" select="encode-for-uri(@set)"/>
+      <xsl:with-param name="date" select="$date"/>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="set-coordinates">
@@ -366,22 +333,6 @@
       <xsl:with-param name="date" select="$date"/>
       <xsl:with-param name="set" select="encode-for-uri(@set)"/>
     </xsl:call-template>
-    <!--xsl:variable name="rest">
-      <xsl:text>http://xslt.childrensmissal.appspot.com/getCoordinates?output=xml&amp;set=</xsl:text>
-      <xsl:value-of select="encode-for-uri(@set)"/>
-      <xsl:text>&amp;date=</xsl:text> 
-      <xsl:value-of select="$date"/>
-      <xsl:text>&amp;options=</xsl:text>
-      <xsl:value-of select="$options"/>
-      <xsl:text>&amp;form=</xsl:text>
-      <xsl:value-of select="$form"/>
-    </xsl:variable>
-    <xsl:variable name="cachedrest">
-      <xsl:call-template name="cache">
-        <xsl:with-param name="rest" select="$rest"/>
-      </xsl:call-template>
-    </xsl:variable>
-    <xsl:copy-of select="$cachedrest"/--> 
   </xsl:template>
 
   <xsl:template match="query-set">
