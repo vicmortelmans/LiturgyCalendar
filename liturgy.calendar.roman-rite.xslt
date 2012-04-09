@@ -23,7 +23,7 @@
   <xsl:param name="coordinates" select="'A011'"/>
   <xsl:param name="year" select="'2011'"/>
 
-  <xsl:variable name="ruleset">
+  <xsl:variable name="rs">
     <xsl:choose>
       <xsl:when test="$ruleset">
         <xsl:copy-of select="doc($ruleset)"/>
@@ -31,7 +31,7 @@
         <xsl:if test="//ruleset and $ruleset != //ruleset and $cache != 'no'">
           <xsl:message>Cache calls will use <xsl:value-of select="$ruleset"/></xsl:message>
         </xsl:if>
-      <xsl:when>
+      </xsl:when>
       <xsl:otherwise>
         <xsl:copy-of select="doc(//ruleset)"/>
         <xsl:message>Reading ruleset from <xsl:value-of select="//ruleset"/></xsl:message>
@@ -54,7 +54,7 @@
           <coordinates><xsl:value-of select="$coordinates"/></coordinates>
           <year><xsl:value-of select="$year"/></year>
         </xsl:if>
-        <xsl:copy-of select="$ruleset"/>
+        <xsl:copy-of select="$rs"/>
       </context>
     </xsl:variable>
     <xsl:apply-templates select="$context" mode="$mode"/>
@@ -83,7 +83,7 @@
           <coordinates><xsl:value-of select="$coordinates"/></coordinates>
           <year><xsl:value-of select="$year"/></year>
         </xsl:if>
-        <xsl:copy-of select="$ruleset"/>
+        <xsl:copy-of select="$rs"/>
       </context>
     </xsl:variable>
     <xsl:apply-templates select="$context" mode="$mode"/>
