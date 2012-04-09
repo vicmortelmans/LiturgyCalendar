@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <locale>en-us</locale>
+  <form>eo</form>
+  <rulesetfile>liturgy.calendar.roman-rite.general.eo.ruleset.expanded.xml</rulesetfile>
+  <options>epiphany-alt,ascension-std,corpuschristi-std</options>
+  <cacheservice>http://prentenmissaal.my28msec.com/cache/cache?url=%url</cacheservice>
+  <cacheserviceurl>http://xslt.childrensmissal.appspot.com/calendar?output=xml&amp;ruleset=&amp;mode=%mode&amp;cache=%cache&amp;date=%date&amp;set=%set&amp;score=%score&amp;coordinates=%coordinates&amp;year=%year</cacheserviceurl>
+  <liturgicaldays>
+    <liturgicalday>
+      <parameters>
+        <parametergroup><name>Optional Memorial of St. Damien de Veuster, priest</name><day>10</day><month>5</month></parametergroup>
+      </parameters>
+      <template>
+       <name>$name</name>
+        <season>Ordinary Time</season>
+        <set>Fixed Days</set>
+        <coordinates>0510</coordinates>
+        <rank nr="11">Optional Memorial</rank>
+        <precedence>8</precedence>
+        <daterules>
+          <date day="$day" month="$month"/>
+        </daterules>
+      </template>
+    </liturgicalday>
+  </liturgicaldays>
+</data>
