@@ -107,20 +107,11 @@
       </xsl:when>
       <xsl:otherwise>
         <xsl:variable name="startnextyear">
-          <xsl:variable name="rest">
-            <xsl:text>http://xslt.childrensmissal.appspot.com/getDate2?output=xml&amp;year=</xsl:text>
-            <xsl:value-of select="$sameyear + 1"/>
-            <xsl:text>&amp;coordinates=A011&amp;options=</xsl:text>
-            <xsl:value-of select="$options"/>
-            <xsl:text>&amp;form=</xsl:text>
-            <xsl:value-of select="$form"/>
-          </xsl:variable>
-          <xsl:variable name="cachedrest">
-            <xsl:call-template name="cache">
-              <xsl:with-param name="rest" select="$rest"/>
-            </xsl:call-template>
-          </xsl:variable>
-          <xsl:value-of select="$cachedrest"/>
+          <xsl:call-template name="cache">
+            <xsl:with-param name="mode" select="'c2d'"/>
+            <xsl:with-param name="year" select="$sameyear + 1"/>
+            <xsl:with-param name="coordinates" select="'A011'"/>
+          </xsl:call-template>
         </xsl:variable>
         <xsl:choose>
           <xsl:when test="xs:date($date) &lt; xs:date($startnextyear)">
