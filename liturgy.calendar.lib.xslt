@@ -13,7 +13,7 @@
         <xsl:apply-templates/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:message>daterules option mismatch(option : <xsl:value-of select="@option"/>, options : <xsl:value-of select="$options"/>)</xsl:message>
+        <xsl:message>daterules option mismatch(option : <xsl:value-of select="@option"/>, options : <xsl:value-of select="//options"/>)</xsl:message>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

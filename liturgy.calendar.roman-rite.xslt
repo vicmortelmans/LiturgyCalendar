@@ -57,7 +57,14 @@
         <xsl:copy-of select="$rs"/>
       </context>
     </xsl:variable>
-    <xsl:apply-templates select="$context" mode="$mode"/>
+    <xsl:choose>
+      <xsl:when test="$mode = 'd2c'">
+	<xsl:apply-templates select="$context" mode="d2c"/>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:apply-templates select="$context" mode="c2d"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template name="calendar">
@@ -86,7 +93,14 @@
         <xsl:copy-of select="$rs"/>
       </context>
     </xsl:variable>
-    <xsl:apply-templates select="$context" mode="$mode"/>
+    <xsl:choose>
+      <xsl:when test="$mode = 'd2c'">
+	<xsl:apply-templates select="$context" mode="d2c"/>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:apply-templates select="$context" mode="c2d"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template name="liturgical-year">

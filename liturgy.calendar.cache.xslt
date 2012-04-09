@@ -15,12 +15,12 @@
     <xsl:choose>
       <xsl:when test="$cache = 'no'">
         <xsl:call-template name="calendar">
-          <xsl:if test="$mode"><xsl:with-param name="mode" select="$mode"/></xsl:if>
-          <xsl:if test="$date"><xsl:with-param name="date" select="$date"/></xsl:if>
-          <xsl:if test="$set"><xsl:with-param name="set" select="$set"/></xsl:if>
-          <xsl:if test="$score"><xsl:with-param name="score" select="$score"/></xsl:if>
-          <xsl:if test="$coordinates"><xsl:with-param name="coordinates" select="$coordinates"/></xsl:if>
-          <xsl:if test="$year"><xsl:with-param name="year" select="$year"/></xsl:if>
+          <xsl:with-param name="mode" select="$mode"/>
+          <xsl:with-param name="date" select="$date"/>
+          <xsl:with-param name="set" select="$set"/>
+          <xsl:with-param name="score" select="$score"/>
+          <xsl:with-param name="coordinates" select="$coordinates"/>
+          <xsl:with-param name="year" select="$year"/>
         </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
