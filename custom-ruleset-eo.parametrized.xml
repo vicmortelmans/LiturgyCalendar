@@ -6,7 +6,7 @@
   <includeliturgicaldays>https://raw.github.com/vicmortelmans/LiturgyCalendar/master/liturgy.calendar.roman-rite.general.eo.ruleset.parametrized.xml</includeliturgicaldays>
   <options>epiphany-alt,ascension-std,corpuschristi-std</options>
   <cacheservice>http://prentenmissaal.my28msec.com/cache/cache?url=$url</cacheservice>
-  <cacheserviceurl>http://xslt.childrensmissal.appspot.com/calendar?output=xml&amp;ruleset=&amp;mode=$mode&amp;cache=$cache&amp;date=$date&amp;set=$set&amp;score=$score&amp;coordinates=$coordinates&amp;year=$year</cacheserviceurl>
+  <cacheserviceurl>http://xslt.childrensmissal.appspot.com/calendar?output=xml&amp;ruleset=&amp;mode=$mode&amp;cache=$cache&amp;date=$date&amp;set=$set&amp;score=$score&amp;minrankprecedence=$minrankprecedence&amp;coordinates=$coordinates&amp;year=$year</cacheserviceurl>
   <liturgicalday>
     <parameters>
       <parametergroup><name>Optional Memorial of St. Damien de Veuster, priest</name><day>10</day><month>5</month></parametergroup>

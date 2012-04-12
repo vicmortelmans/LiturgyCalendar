@@ -9,9 +9,11 @@
     <xsl:param name="date" select="'2011-08-09'"/>
     <xsl:param name="set"/>
     <xsl:param name="score" select="'yes'"/>
+    <xsl:param name="minrankprecedence" select="0"/>
     <!-- c2d -->
     <xsl:param name="coordinates" select="'A011'"/>
     <xsl:param name="year" select="'2011'"/>
+    <xsl:message>cache(mode : <xsl:value-of select="$mode"/>;date : <xsl:value-of select="$date"/>;set : <xsl:value-of select="$set"/>;score : <xsl:value-of select="$score"/>;coordinates : <xsl:value-of select="$coordinates"/>;year : <xsl:value-of select="$year"/>)</xsl:message>
     <xsl:choose>
       <xsl:when test="$cache = 'no'">
         <xsl:call-template name="calendar">
@@ -19,6 +21,7 @@
           <xsl:with-param name="date" select="$date"/>
           <xsl:with-param name="set" select="$set"/>
           <xsl:with-param name="score" select="$score"/>
+          <xsl:with-param name="minrankprecedence" select="$minrankprecedence"/>
           <xsl:with-param name="coordinates" select="$coordinates"/>
           <xsl:with-param name="year" select="$year"/>
         </xsl:call-template>
@@ -40,6 +43,7 @@
                         <date><xsl:if test="$date"><xsl:value-of select="$date"/></xsl:if></date>
                         <set><xsl:if test="$set"><xsl:value-of select="$set"/></xsl:if></set>
                         <score><xsl:if test="$score"><xsl:value-of select="$score"/></xsl:if></score>
+                        <minrankprecedence><xsl:if test="$minrankprecedence"><xsl:value-of select="$minrankprecedence"/></xsl:if></minrankprecedence>
                         <coordinates><xsl:if test="$coordinates"><xsl:value-of select="$coordinates"/></xsl:if></coordinates>
                         <year><xsl:if test="$year"><xsl:value-of select="$year"/></xsl:if></year>
                       </parametergroup>
@@ -58,6 +62,7 @@
         <xsl:message>Result: <xsl:copy-of select="$data"/></xsl:message>
       </xsl:otherwise>
     </xsl:choose>
+    <xsl:message>/cache</xsl:message>
   </xsl:template>
 
   <xsl:template name="replace"><!-- copied from liturgical.calendar.build-ruleset.xslt and added encoding func -->

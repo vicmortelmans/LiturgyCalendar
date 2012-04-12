@@ -12,7 +12,7 @@
   </xsl:template>
   
   <xsl:template match="includeliturgicaldays">
-    <xsl:apply-templates select="doc(.)/*"/>
+    <xsl:apply-templates select="doc(.)/liturgicaldays/*"/>
   </xsl:template>
   
   <xsl:template match="liturgicalday">

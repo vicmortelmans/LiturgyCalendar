@@ -4,7 +4,7 @@
     xmlns:fn="http://www.w3.org/2005/xpath-functions">
 
   <xsl:template match="context" mode="c2d">
-    <xsl:apply-templates/>
+    <xsl:apply-templates mode="c2d"/>
   </xsl:template>
 
   <xsl:template match="liturgicalday[coordinates = $coordinates]" mode="c2d">

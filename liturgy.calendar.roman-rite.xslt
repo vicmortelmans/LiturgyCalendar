@@ -18,6 +18,7 @@
   <xsl:param name="date" select="'2011-08-09'"/>
   <xsl:param name="set"/>
   <xsl:param name="score" select="'yes'"/>
+  <xsl:param name="minrankprecedence" select="0"/>
 
   <!-- c2d -->
   <xsl:param name="coordinates" select="'A011'"/>
@@ -44,6 +45,9 @@
       <context>
         <xsl:if test="$mode = 'd2c'">
           <date><xsl:value-of select="$date"/></date>
+          <set><xsl:value-of select="$set"/></set>
+          <score><xsl:value-of select="$score"/></score>
+          <minrankprecedence><xsl:value-of select="$minrankprecedence"/></minrankprecedence>
           <year>
             <xsl:call-template name="liturgical-year">
               <xsl:with-param name="date" select="$date"/>
@@ -59,9 +63,18 @@
     </xsl:variable>
     <xsl:choose>
       <xsl:when test="$mode = 'd2c'">
+        <xsl:message>DATE TO COORDINATES (root template)</xsl:message>
+        <xsl:message>date: <xsl:value-of select="$context/context/date"/></xsl:message>
+        <xsl:message>set: <xsl:value-of select="$context/context/set"/></xsl:message>
+        <xsl:message>score: <xsl:value-of select="$context/context/score"/></xsl:message>
+        <xsl:message>minrankprecedence: <xsl:value-of select="$context/context/minrankprecedence"/></xsl:message>
+        <xsl:message>year: <xsl:value-of select="$context/context/year"/></xsl:message> 
 	<xsl:apply-templates select="$context" mode="d2c"/>
       </xsl:when>
       <xsl:otherwise>
+        <xsl:message>COORDINATES TO DATE (root template)</xsl:message>
+        <xsl:message>coordinates: <xsl:value-of select="$context/context/coordinates"/></xsl:message>
+        <xsl:message>year: <xsl:value-of select="$context/context/year"/></xsl:message> 
 	<xsl:apply-templates select="$context" mode="c2d"/>
       </xsl:otherwise>
     </xsl:choose>
@@ -73,13 +86,18 @@
     <xsl:param name="date" select="'2011-08-09'"/>
     <xsl:param name="set"/>
     <xsl:param name="score" select="'yes'"/>
+    <xsl:param name="minrankprecedence" select="0"/>
     <!-- c2d -->
     <xsl:param name="coordinates" select="'A011'"/>
     <xsl:param name="year" select="'2011'"/>
+    <xsl:message>calendar</xsl:message>
     <xsl:variable name="context">
       <context>
         <xsl:if test="$mode = 'd2c'">
           <date><xsl:value-of select="$date"/></date>
+          <set><xsl:value-of select="$set"/></set>
+          <score><xsl:value-of select="$score"/></score>
+          <minrankprecedence><xsl:value-of select="$minrankprecedence"/></minrankprecedence>
           <year>
             <xsl:call-template name="liturgical-year">
               <xsl:with-param name="date" select="$date"/>
@@ -95,13 +113,31 @@
     </xsl:variable>
     <xsl:choose>
       <xsl:when test="$mode = 'd2c'">
+        <xsl:message>DATE TO COORDINATES (calendar template)</xsl:message>
+        <xsl:message>date: <xsl:value-of select="$context/context/date"/></xsl:message>
+        <xsl:message>set: <xsl:value-of select="$context/context/set"/></xsl:message>
+        <xsl:message>score: <xsl:value-of select="$context/context/score"/></xsl:message>
+        <xsl:message>minrankprecedence: <xsl:value-of select="$context/context/minrankprecedence"/></xsl:message>
+        <xsl:message>year: <xsl:value-of select="$context/context/year"/></xsl:message> 
 	<xsl:apply-templates select="$context" mode="d2c"/>
       </xsl:when>
       <xsl:otherwise>
+        <xsl:message>COORDINATES TO DATE (calendar template)</xsl:message>
+        <xsl:message>coordinates: <xsl:value-of select="$context/context/coordinates"/></xsl:message>
+        <xsl:message>year: <xsl:value-of select="$context/context/year"/></xsl:message> 
 	<xsl:apply-templates select="$context" mode="c2d"/>
       </xsl:otherwise>
     </xsl:choose>
+    <xsl:message>/calendar</xsl:message>
   </xsl:template>
+
+  <!-- a note on accessing the parameters and variables:
+       
+       $mode, $cache, 
+       /context/date, /context/set, /context/score, /context/minrankprecedence, /context/year, /context/coordinates 
+       /context/liturgicaldays/options
+
+    -->
 
   <xsl:template name="liturgical-year">
     <xsl:param name="date"/>
@@ -110,33 +146,37 @@
     <xsl:variable name="same1127" select="concat($sameyear,'-11-27')"/>
     <xsl:variable name="same1203" select="concat($sameyear,'-12-03')"/>
     <xsl:variable name="same1231" select="concat($sameyear,'-12-31')"/>
-    <xsl:choose>
-      <xsl:when test="xs:date($date) &gt;= xs:date($same0101) and
-                      xs:date($date) &lt;  xs:date($same1127)">
-        <xsl:value-of select="$sameyear"/>
-      </xsl:when>
-      <xsl:when test="xs:date($date) &gt;  xs:date($same1203) and
-                      xs:date($date) &lt;= xs:date($same1231)">
-        <xsl:value-of select="$sameyear + 1"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:variable name="startnextyear">
-          <xsl:call-template name="cache">
-            <xsl:with-param name="mode" select="'c2d'"/>
-            <xsl:with-param name="year" select="$sameyear + 1"/>
-            <xsl:with-param name="coordinates" select="'A011'"/>
-          </xsl:call-template>
-        </xsl:variable>
-        <xsl:choose>
-          <xsl:when test="xs:date($date) &lt; xs:date($startnextyear)">
-             <xsl:value-of select="$sameyear"/>
-          </xsl:when>
-          <xsl:otherwise>
-             <xsl:value-of select="$sameyear + 1"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:otherwise>
-    </xsl:choose>    
+    <xsl:variable name="result">
+      <xsl:choose>
+	<xsl:when test="xs:date($date) &gt;= xs:date($same0101) and
+			xs:date($date) &lt;  xs:date($same1127)">
+	  <xsl:value-of select="$sameyear"/>
+	</xsl:when>
+	<xsl:when test="xs:date($date) &gt;  xs:date($same1203) and
+			xs:date($date) &lt;= xs:date($same1231)">
+	  <xsl:value-of select="$sameyear + 1"/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:variable name="startnextyear">
+	    <xsl:call-template name="cache">
+	      <xsl:with-param name="mode" select="'c2d'"/>
+	      <xsl:with-param name="year" select="$sameyear + 1"/>
+	      <xsl:with-param name="coordinates" select="'A011'"/>
+	    </xsl:call-template>
+	  </xsl:variable>
+	  <xsl:choose>
+	    <xsl:when test="xs:date($date) &lt; xs:date($startnextyear)">
+	       <xsl:value-of select="$sameyear"/>
+	    </xsl:when>
+	    <xsl:otherwise>
+	       <xsl:value-of select="$sameyear + 1"/>
+	    </xsl:otherwise>
+	  </xsl:choose>
+	</xsl:otherwise>
+      </xsl:choose>    
+    </xsl:variable>
+    <xsl:message>liturgical-year of <xsl:value-of select="$date"/> is <xsl:value-of select="$result"/></xsl:message>
+    <xsl:value-of select="$result"/>
   </xsl:template>
   
 </xsl:stylesheet>
