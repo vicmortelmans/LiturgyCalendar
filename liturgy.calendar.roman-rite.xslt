@@ -5,6 +5,7 @@
 
   <xsl:strip-space elements="*"/>
  
+  <xsl:include href="liturgy.calendar.build-ruleset.xslt"/>
   <xsl:include href="liturgy.calendar.lib.xslt"/>
   <xsl:include href="liturgy.calendar.cache.xslt"/>
   <xsl:include href="liturgy.calendar.roman-rite.d2c.xslt"/>
@@ -24,58 +25,123 @@
   <xsl:param name="coordinates" select="'A011'"/>
   <xsl:param name="year" select="'2011'"/>
 
-  <xsl:variable name="rs">
+  <xsl:variable name="rsp">
     <xsl:choose>
-      <xsl:when test="$ruleset">
+      <xsl:when test="$cache = 'yes' and $ruleset">
         <xsl:copy-of select="doc($ruleset)"/>
         <xsl:message>Reading ruleset from <xsl:value-of select="$ruleset"/></xsl:message>
-        <xsl:if test="//ruleset and $ruleset != //ruleset and $cache != 'no'">
-          <xsl:message>Cache calls will use <xsl:value-of select="$ruleset"/></xsl:message>
-        </xsl:if>
+        <xsl:message>Cache calls will use settings in <xsl:value-of select="$ruleset"/></xsl:message>
+        <xsl:message>Input file is ignored</xsl:message>
+      </xsl:when>
+      <xsl:when test="$cache = 'yes' and not($ruleset)">
+        <xsl:copy-of select="doc(//ruleset)"/>
+        <xsl:message>Reading ruleset from <xsl:value-of select="//ruleset"/> (cf. input file &lt;ruleset&gt; element)</xsl:message>
+        <xsl:message>Cache calls will use settings in <xsl:value-of select="//ruleset"/></xsl:message>
+      </xsl:when>
+      <xsl:otherwise><!-- cache = 'no' -->
+        <xsl:copy-of select="/"/>
+        <xsl:message>Reading ruleset from input file</xsl:message>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="rsl">
+    <xsl:choose>
+      <xsl:when test="$cache = 'yes' and $ruleset">
+        <xsl:value-of select="$ruleset"/>
+        <xsl:message>Reading ruleset from <xsl:value-of select="$ruleset"/></xsl:message>
+        <xsl:message>Cache calls will use settings in <xsl:value-of select="$ruleset"/></xsl:message>
+        <xsl:message>Input file is ignored</xsl:message>
+      </xsl:when>
+      <xsl:when test="$cache = 'yes' and not($ruleset)">
+        <xsl:value-of select="//ruleset"/>
+        <xsl:message>Reading ruleset from <xsl:value-of select="//ruleset"/> (cf. input file &lt;ruleset&gt; element)</xsl:message>
+        <xsl:message>Cache calls will use settings in <xsl:value-of select="//ruleset"/></xsl:message>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="rs">
+    <xsl:choose>
+      <xsl:when test="$cache = 'no'">
+        <xsl:apply-templates select="$rsp/liturgicaldays" mode="build">
       </xsl:when>
       <xsl:otherwise>
-        <xsl:copy-of select="doc(//ruleset)"/>
-        <xsl:message>Reading ruleset from <xsl:value-of select="//ruleset"/></xsl:message>
+        <xsl:variable name="url">
+          <xsl:call-template name="replace">
+            <xsl:with-param name="string" select="//cacheservice"/>
+            <xsl:with-param name="parametergroup">
+              <parametergroup>
+                <url>
+                  <xsl:call-template name="replace">
+                    <xsl:with-param name="encode" select="yes"/>
+                    <xsl:with-param name="string" select="//restservice"/>
+                    <xsl:with-param name="parametergroup">
+                      <parametergroup>
+                        <mode><xsl:value-of select="$mode"/></mode>
+                        <cache><xsl:value-of select="no"/></cache>
+                        <ruleset><xsl:value-of select="$rsl"></ruleset>
+                      </parametergroup>
+                    </xsl:with-param>
+                  </xsl:call-template>
+                </url>
+              </parametergroup>
+            </xsl:with-param>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="data">
+          <xsl:value-of select="document($url)"/>
+        </xsl:variable>
+        <xsl:copy-of select="$data"/>
+        <xsl:message>REST call to <xsl:value-of select="$url"/></xsl:message>
+        <xsl:message>Result: <xsl:copy-of select="$data"/></xsl:message>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
   <xsl:template match="/"><!-- matches the root of the input XML file -->
-    <xsl:variable name="context">
-      <context>
-        <xsl:if test="$mode = 'd2c'">
-          <date><xsl:value-of select="$date"/></date>
-          <set><xsl:value-of select="$set"/></set>
-          <score><xsl:value-of select="$score"/></score>
-          <minrankprecedence><xsl:value-of select="$minrankprecedence"/></minrankprecedence>
-          <year>
-            <xsl:call-template name="liturgical-year">
-              <xsl:with-param name="date" select="$date"/>
-            </xsl:call-template>
-          </year>          
-        </xsl:if>
-        <xsl:if test="$mode = 'c2d'">
-          <coordinates><xsl:value-of select="$coordinates"/></coordinates>
-          <year><xsl:value-of select="$year"/></year>
-        </xsl:if>
-        <xsl:copy-of select="$rs"/>
-      </context>
-    </xsl:variable>
     <xsl:choose>
-      <xsl:when test="$mode = 'd2c'">
-        <xsl:message>DATE TO COORDINATES (root template)</xsl:message>
-        <xsl:message>date: <xsl:value-of select="$context/context/date"/></xsl:message>
-        <xsl:message>set: <xsl:value-of select="$context/context/set"/></xsl:message>
-        <xsl:message>score: <xsl:value-of select="$context/context/score"/></xsl:message>
-        <xsl:message>minrankprecedence: <xsl:value-of select="$context/context/minrankprecedence"/></xsl:message>
-        <xsl:message>year: <xsl:value-of select="$context/context/year"/></xsl:message> 
-	<xsl:apply-templates select="$context" mode="d2c"/>
+      <xsl:when test="$mode = 'b'">
+        <xsl:copy-of select="$rs"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:message>COORDINATES TO DATE (root template)</xsl:message>
-        <xsl:message>coordinates: <xsl:value-of select="$context/context/coordinates"/></xsl:message>
-        <xsl:message>year: <xsl:value-of select="$context/context/year"/></xsl:message> 
-	<xsl:apply-templates select="$context" mode="c2d"/>
+        <xsl:variable name="context">
+          <context>
+            <xsl:if test="$mode = 'd2c'">
+              <date><xsl:value-of select="$date"/></date>
+              <set><xsl:value-of select="$set"/></set>
+              <score><xsl:value-of select="$score"/></score>
+              <minrankprecedence><xsl:value-of select="$minrankprecedence"/></minrankprecedence>
+              <year>
+                <xsl:call-template name="liturgical-year">
+                  <xsl:with-param name="date" select="$date"/>
+                </xsl:call-template>
+              </year>          
+            </xsl:if>
+            <xsl:if test="$mode = 'c2d'">
+              <coordinates><xsl:value-of select="$coordinates"/></coordinates>
+              <year><xsl:value-of select="$year"/></year>
+            </xsl:if>
+            <xsl:copy-of select="$rs"/>
+          </context>
+        </xsl:variable>
+        <xsl:choose>
+          <xsl:when test="$mode = 'd2c'">
+            <xsl:message>DATE TO COORDINATES (root template)</xsl:message>
+            <xsl:message>date: <xsl:value-of select="$context/context/date"/></xsl:message>
+            <xsl:message>set: <xsl:value-of select="$context/context/set"/></xsl:message>
+            <xsl:message>score: <xsl:value-of select="$context/context/score"/></xsl:message>
+            <xsl:message>minrankprecedence: <xsl:value-of select="$context/context/minrankprecedence"/></xsl:message>
+            <xsl:message>year: <xsl:value-of select="$context/context/year"/></xsl:message> 
+            <xsl:apply-templates select="$context" mode="d2c"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:message>COORDINATES TO DATE (root template)</xsl:message>
+            <xsl:message>coordinates: <xsl:value-of select="$context/context/coordinates"/></xsl:message>
+            <xsl:message>year: <xsl:value-of select="$context/context/year"/></xsl:message> 
+            <xsl:apply-templates select="$context" mode="c2d"/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

@@ -6,7 +6,7 @@
   <xsl:template name="cache">
     <xsl:param name="mode" select="'d2c'"/>
     <!-- d2c -->
-    <xsl:param name="date" select="'2011-08-09'"/>
+    <xsl:param name="date"/>
     <xsl:param name="set"/>
     <xsl:param name="score" select="'yes'"/>
     <xsl:param name="minrankprecedence" select="0"/>
