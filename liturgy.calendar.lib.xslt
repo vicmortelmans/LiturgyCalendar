@@ -272,10 +272,21 @@
     <!-- render the coordinates in the specified sets -->
     <xsl:variable name="coordinates">
       <xsl:for-each select="//coordinaterules[matches($sets,@set)]">
+	<xsl:variable name="rankprecedence">
+	  <xsl:choose>
+	    <xsl:when test="ancestor::liturgicalday/precedence">
+	      <xsl:value-of select="100 * ancestor::liturgicalday/rank/@nr + ancestor::liturgicalday/precedence"/>
+	    </xsl:when>
+	    <xsl:otherwise>
+	      <xsl:value-of select="100 * ancestor::liturgicalday/rank/@nr"/>
+	    </xsl:otherwise>
+	  </xsl:choose>
+	</xsl:variable>
         <xsl:variable name="ruleset">
           <!-- to avoid endless looping, the set-coordinates template should only return coordinates for days with minimum rank and precedence
                and even more: it should avoid executing the daterules for days with lesser rank and precedence -->
-          <set-coordinates set="{@set}" minrankprecedence="{ancestor::liturgicalday/rank/@nr * 100 + ancestor::liturgicalday/precedence}">
+          <xsl:message>transfer - finding overlap with minrankprecedence <xsl:value-of select="$rankprecedence"/></xsl:message>
+	  <set-coordinates set="{@set}" minrankprecedence="{$rankprecedence}">
             <xsl:value-of select="$date"/>
           </set-coordinates>
         </xsl:variable>
@@ -367,8 +378,18 @@
        If @anydate is specified all matching coordinates are returned concatenated. -->
     <xsl:message>query-set(date : <xsl:value-of select="normalize-space(/context/date)"/>, set : <xsl:value-of select="@set"/>)</xsl:message>
     <xsl:for-each select="//liturgicalday[set = current()/@set]">
-      <xsl:message>querying <xsl:value-of select="set"/></xsl:message>
-      <xsl:if test="/context/minrankprecedence &gt; 100 * rank/@nr + precedence">
+      <xsl:variable name="rankprecedence">
+        <xsl:choose>
+          <xsl:when test="precedence">
+            <xsl:value-of select="100 * rank/@nr + precedence"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="100 * rank/@nr"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:message>querying <xsl:value-of select="set"/>; <xsl:value-of select="/context/minrankprecedence"/> &gt; <xsl:value-of select="$rankprecedence"/></xsl:message>
+      <xsl:if test="number(/context/minrankprecedence) = 0 or number(/context/minrankprecedence) &gt; number($rankprecedence)">
 	<xsl:variable name="candidate">
 	  <xsl:apply-templates select="daterules"/>
 	</xsl:variable>
@@ -394,7 +415,7 @@
     </xsl:variable>
     <xsl:for-each select="//liturgicalday[set=current()/@set and coordinates=$coordinates]">
       <xsl:message>querying <xsl:value-of select="coordinates"/> in <xsl:value-of select="set"/></xsl:message>
-      <xsl:if test="/context/minrankprecedence &gt; 100 * rank/@nr + precedence">
+      <xsl:if test="number(/context/minrankprecedence) = 0 or number(/context/minrankprecedence) &gt; 100 * number(rank/@nr) + number(precedence)">
 	<xsl:variable name="candidate">
 	  <xsl:apply-templates select="daterules"/>
 	</xsl:variable>

@@ -102,7 +102,7 @@
           </xsl:variable>
           <xsl:message>precedence = <xsl:value-of select="$precedence"/></xsl:message>
           <xsl:variable name="rankprecedence" select="100 * $rank + $precedence"/>
-          <xsl:if test="$rankprecedence &gt; /context/minrankprecedence">
+          <xsl:if test="number($rankprecedence) &gt; number(/context/minrankprecedence)">
 	    <xsl:variable name="overlap-priority" select="//coordinaterules[@set = current()/@set]/@overlap-priority"/>
 	    <xsl:message>overlap-priority = <xsl:value-of select="$overlap-priority"/></xsl:message>
 	    <xsl:variable name="score" select="format-number(10000 * $rank + 100 * $precedence + $overlap-priority,'000000')"/>
