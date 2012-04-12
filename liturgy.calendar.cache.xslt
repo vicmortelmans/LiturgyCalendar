@@ -46,6 +46,7 @@
                         <minrankprecedence><xsl:if test="$minrankprecedence"><xsl:value-of select="$minrankprecedence"/></xsl:if></minrankprecedence>
                         <coordinates><xsl:if test="$coordinates"><xsl:value-of select="$coordinates"/></xsl:if></coordinates>
                         <year><xsl:if test="$year"><xsl:value-of select="$year"/></xsl:if></year>
+                        <ruleset></ruleset>
                       </parametergroup>
                     </xsl:with-param>
                   </xsl:call-template>
@@ -68,7 +69,7 @@
   <xsl:template name="replace"><!-- copied from liturgical.calendar.build-ruleset.xslt and added encoding func -->
     <xsl:param name="string"/>
     <xsl:param name="parametergroup"/>
-    <xsl:param name="encode" select="no"/>
+    <xsl:param name="encode" select="'no'"/>
     <xsl:choose>
       <xsl:when test="not(matches($string,'\$'))">
         <xsl:choose>
@@ -81,8 +82,9 @@
         </xsl:choose>
       </xsl:when>
       <xsl:otherwise>
+        <xsl:variable name="replace" select="replace($string,concat('\$',local-name($parametergroup/*[1])),$parametergroup/*[1])"/>
         <xsl:call-template name="replace">
-          <xsl:with-param name="string" select="replace($string,concat('\$',local-name($parametergroup/*[1])),$parametergroup/*[1])"/>
+          <xsl:with-param name="string" select="$replace"/>
           <xsl:with-param name="parametergroup">
             <xsl:copy-of select="$parametergroup/*[position() &gt; 1]"/>
           </xsl:with-param>

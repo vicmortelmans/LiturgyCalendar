@@ -27,16 +27,8 @@
 
   <xsl:variable name="rsp">
     <xsl:choose>
-      <xsl:when test="$cache = 'yes' and $ruleset">
-        <xsl:copy-of select="doc($ruleset)"/>
-        <xsl:message>Reading ruleset from <xsl:value-of select="$ruleset"/></xsl:message>
-        <xsl:message>Cache calls will use settings in <xsl:value-of select="$ruleset"/></xsl:message>
-        <xsl:message>Input file is ignored</xsl:message>
-      </xsl:when>
-      <xsl:when test="$cache = 'yes' and not($ruleset)">
-        <xsl:copy-of select="doc(//ruleset)"/>
-        <xsl:message>Reading ruleset from <xsl:value-of select="//ruleset"/> (cf. input file &lt;ruleset&gt; element)</xsl:message>
-        <xsl:message>Cache calls will use settings in <xsl:value-of select="//ruleset"/></xsl:message>
+      <xsl:when test="$cache = 'yes'">
+        <xsl:copy-of select="doc($rsl)"/>
       </xsl:when>
       <xsl:otherwise><!-- cache = 'no' -->
         <xsl:copy-of select="/"/>
@@ -47,45 +39,47 @@
 
   <xsl:variable name="rsl">
     <xsl:choose>
-      <xsl:when test="$cache = 'yes' and $ruleset">
+      <xsl:when test="$ruleset">
         <xsl:value-of select="$ruleset"/>
         <xsl:message>Reading ruleset from <xsl:value-of select="$ruleset"/></xsl:message>
         <xsl:message>Cache calls will use settings in <xsl:value-of select="$ruleset"/></xsl:message>
         <xsl:message>Input file is ignored</xsl:message>
       </xsl:when>
-      <xsl:when test="$cache = 'yes' and not($ruleset)">
+      <xsl:otherwise>
         <xsl:value-of select="//ruleset"/>
         <xsl:message>Reading ruleset from <xsl:value-of select="//ruleset"/> (cf. input file &lt;ruleset&gt; element)</xsl:message>
         <xsl:message>Cache calls will use settings in <xsl:value-of select="//ruleset"/></xsl:message>
-      </xsl:when>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
   <xsl:variable name="rs">
     <xsl:choose>
       <xsl:when test="$cache = 'no'">
-        <xsl:apply-templates select="$rsp/liturgicaldays" mode="build">
+        <xsl:apply-templates select="$rsp/liturgicaldays" mode="build"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:variable name="url">
           <xsl:call-template name="replace">
-            <xsl:with-param name="string" select="//cacheservice"/>
+            <xsl:with-param name="string" select="$rsp//cacheservice"/>
             <xsl:with-param name="parametergroup">
-              <parametergroup>
-                <url>
-                  <xsl:call-template name="replace">
-                    <xsl:with-param name="encode" select="yes"/>
-                    <xsl:with-param name="string" select="//restservice"/>
-                    <xsl:with-param name="parametergroup">
-                      <parametergroup>
-                        <mode><xsl:value-of select="$mode"/></mode>
-                        <cache><xsl:value-of select="no"/></cache>
-                        <ruleset><xsl:value-of select="$rsl"></ruleset>
-                      </parametergroup>
-                    </xsl:with-param>
-                  </xsl:call-template>
-                </url>
-              </parametergroup>
+	      <url>
+		<xsl:call-template name="replace">
+		  <xsl:with-param name="encode" select="yes"/>
+		  <xsl:with-param name="string" select="$rsp//restservice"/>
+		  <xsl:with-param name="parametergroup">
+		    <mode><xsl:value-of select="$mode"/></mode>
+		    <cache>no</cache>
+		    <ruleset><xsl:value-of select="$rsl"/></ruleset>
+                    <date></date>    
+                    <set></set>    
+                    <score></score>     
+                    <minrankprecedence></minrankprecedence>     
+                    <coordinates></coordinates>     
+                    <year></year>
+		  </xsl:with-param>
+		</xsl:call-template>
+	      </url>
             </xsl:with-param>
           </xsl:call-template>
         </xsl:variable>
