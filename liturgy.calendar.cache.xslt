@@ -35,7 +35,7 @@
                 <url>
                   <xsl:call-template name="replace">
                     <xsl:with-param name="encode" select="yes"/>
-                    <xsl:with-param name="string" select="//cacheserviceurl"/>
+                    <xsl:with-param name="string" select="//restservice"/>
                     <xsl:with-param name="parametergroup">
                       <parametergroup>
                         <mode><xsl:value-of select="$mode"/></mode>

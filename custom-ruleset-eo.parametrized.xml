@@ -6,7 +6,7 @@
   <includeliturgicaldays>https://raw.github.com/vicmortelmans/LiturgyCalendar/master/liturgy.calendar.roman-rite.general.eo.ruleset.parametrized.xml</includeliturgicaldays>
   <options>epiphany-alt,ascension-std,corpuschristi-std</options>
   <cacheservice>http://prentenmissaal.my28msec.com/cache/cache?url=$url</cacheservice>
-  <cacheserviceurl>http://xslt.childrensmissal.appspot.com/calendar?output=xml&amp;ruleset=&amp;mode=$mode&amp;cache=$cache&amp;date=$date&amp;set=$set&amp;score=$score&amp;minrankprecedence=$minrankprecedence&amp;coordinates=$coordinates&amp;year=$year</cacheserviceurl>
+  <restservice>http://xslt.childrensmissal.appspot.com/calendar?output=xml&amp;ruleset=&amp;mode=$mode&amp;cache=$cache&amp;date=$date&amp;set=$set&amp;score=$score&amp;minrankprecedence=$minrankprecedence&amp;coordinates=$coordinates&amp;year=$year</restservice>
   <liturgicalday>
     <parameters>
       <parametergroup><name>Optional Memorial of St. Damien de Veuster, priest</name><day>10</day><month>5</month></parametergroup>
@@ -14,7 +14,7 @@
     <template>
      <name>$name</name>
       <season>Ordinary Time</season>
-      <set>Fixed Days</set>
+      <set>Local dates</set>
       <coordinates>0510</coordinates>
       <rank nr="11">Optional Memorial</rank>
       <precedence>8</precedence>
@@ -23,4 +23,7 @@
       </daterules>
     </template>
   </liturgicalday>
+  <coordinaterules set="Local dates" start-date="01-01" stop-date="12-31" overlap-priority="6">
+    <query-set set="Local dates"/>
+  </coordinaterules>   
 </liturgicaldays>
