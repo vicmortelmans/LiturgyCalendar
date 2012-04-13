@@ -116,7 +116,7 @@
               <score><xsl:value-of select="$score"/></score>
               <minrankprecedence>
                 <xsl:choose>
-                  <xsl:when test="$minrankprecedence = ''">0<xsl:message>DEBUG minrankprecedence fallback to 0</xsl:message></xsl:when>
+                  <xsl:when test="string($minrankprecedence) = ''">0<xsl:message>DEBUG minrankprecedence fallback to 0</xsl:message></xsl:when>
                   <xsl:otherwise><xsl:value-of select="$minrankprecedence"/></xsl:otherwise>
                 </xsl:choose>
               </minrankprecedence>
