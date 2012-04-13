@@ -388,7 +388,7 @@
           </xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
-      <xsl:message>querying <xsl:value-of select="set"/>; <xsl:value-of select="/context/minrankprecedence"/> &gt; <xsl:value-of select="$rankprecedence"/></xsl:message>
+      <xsl:message>querying <xsl:value-of select="set"/>; <xsl:value-of select="number(/context/minrankprecedence)"/> = 0 or &gt; <xsl:value-of select="number($rankprecedence)"/></xsl:message>
       <xsl:if test="number(/context/minrankprecedence) = 0 or number(/context/minrankprecedence) &gt; number($rankprecedence)">
 	<xsl:variable name="candidate">
 	  <xsl:apply-templates select="daterules"/>
