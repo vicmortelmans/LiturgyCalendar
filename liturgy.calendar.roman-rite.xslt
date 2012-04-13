@@ -98,7 +98,6 @@
         </xsl:variable>
         <xsl:copy-of select="$data"/>
         <xsl:message>REST call to <xsl:value-of select="$url"/></xsl:message>
-        <xsl:message>Result: <xsl:copy-of select="$data"/></xsl:message>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
