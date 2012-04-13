@@ -68,13 +68,14 @@
       <xsl:otherwise>
         <xsl:variable name="url">
           <xsl:call-template name="replace">
+	    <xsl:with-param name="encode" select="'yes'"/>
             <xsl:with-param name="string" select="$rsp//cacheservice"/>
             <xsl:with-param name="parametergroup">
               <doc>ruleset</doc>
               <expiration>1</expiration>
 	      <url>
 		<xsl:call-template name="replace">
-		  <xsl:with-param name="encode" select="yes"/>
+		  <xsl:with-param name="encode" select="'yes'"/>
 		  <xsl:with-param name="string" select="$rsp//restservice"/>
 		  <xsl:with-param name="parametergroup">
 		    <mode>b</mode>
@@ -93,7 +94,7 @@
           </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="data">
-          <xsl:value-of select="document($url)"/>
+          <xsl:copy-of select="document($url)"/>
         </xsl:variable>
         <xsl:copy-of select="$data"/>
         <xsl:message>REST call to <xsl:value-of select="$url"/></xsl:message>

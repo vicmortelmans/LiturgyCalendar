@@ -32,8 +32,6 @@
             <xsl:with-param name="string" select="//cacheservice"/>
             <xsl:with-param name="parametergroup">
               <parametergroup>
-                <doc>calendar</doc>
-                <expiration>1</expiration>
                 <url>
                   <xsl:call-template name="replace">
                     <xsl:with-param name="encode" select="yes"/>
@@ -74,22 +72,26 @@
     <xsl:param name="encode" select="'no'"/>
     <xsl:choose>
       <xsl:when test="not(matches($string,'\$'))">
-        <xsl:choose>
-          <xsl:when test="$encode = 'yes'">
-            <xsl:value-of select="encode-for-uri($string)"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="$string"/>
-          </xsl:otherwise>
-        </xsl:choose>
+	<xsl:value-of select="$string"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:variable name="replace" select="replace($string,concat('\$',local-name($parametergroup/*[1])),$parametergroup/*[1])"/>
+        <xsl:variable name="replacement">
+	  <xsl:choose>
+	    <xsl:when test="$encode = 'yes'">
+	      <xsl:value-of select="encode-for-uri($parametergroup/*[1])"/>
+	    </xsl:when>
+	    <xsl:otherwise>
+	      <xsl:value-of select="$parametergroup/*[1]"/>
+	    </xsl:otherwise>
+	  </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="replace" select="replace($string,concat('\$',local-name($parametergroup/*[1])),$replacement)"/>
         <xsl:call-template name="replace">
           <xsl:with-param name="string" select="$replace"/>
           <xsl:with-param name="parametergroup">
             <xsl:copy-of select="$parametergroup/*[position() &gt; 1]"/>
           </xsl:with-param>
+          <xsl:with-param name="encode" select="$encode"/>
         </xsl:call-template>
       </xsl:otherwise>
     </xsl:choose>
