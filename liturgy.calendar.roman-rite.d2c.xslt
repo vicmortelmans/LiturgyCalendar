@@ -117,5 +117,6 @@
     
   <xsl:template match="coordinaterules" mode="d2c"/>
   <xsl:template match="liturgicalday" mode="d2c"/>
+  <xsl:template match="*|text()" mode="d2c"/>
   
 </xsl:stylesheet>
