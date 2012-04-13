@@ -27,7 +27,7 @@
 
   <xsl:variable name="rsp">
     <xsl:choose>
-      <xsl:when test="$cache = 'yes'">
+      <xsl:when test="$cache = 'yes' or $cache = 'no-rs'">
         <xsl:copy-of select="doc($rsl)"/>
       </xsl:when>
       <xsl:otherwise><!-- cache = 'no' -->
@@ -55,7 +55,7 @@
 
   <xsl:variable name="rs">
     <xsl:choose>
-      <xsl:when test="$cache = 'no'">
+      <xsl:when test="$cache = 'no' or $cache = 'no-rs'">
         <xsl:apply-templates select="$rsp/liturgicaldays" mode="build"/>
       </xsl:when>
       <xsl:otherwise>
@@ -68,8 +68,8 @@
 		  <xsl:with-param name="encode" select="yes"/>
 		  <xsl:with-param name="string" select="$rsp//restservice"/>
 		  <xsl:with-param name="parametergroup">
-		    <mode><xsl:value-of select="$mode"/></mode>
-		    <cache>no</cache>
+		    <mode>b</mode>
+		    <cache>no-rs</cache>
 		    <ruleset><xsl:value-of select="$rsl"/></ruleset>
                     <date></date>    
                     <set></set>    
