@@ -32,6 +32,8 @@
             <xsl:with-param name="string" select="//cacheservice"/>
             <xsl:with-param name="parametergroup">
               <parametergroup>
+                <doc>calendar</doc>
+                <expiration>1</expiration>
                 <url>
                   <xsl:call-template name="replace">
                     <xsl:with-param name="encode" select="yes"/>

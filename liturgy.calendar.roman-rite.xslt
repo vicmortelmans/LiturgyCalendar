@@ -25,7 +25,30 @@
   <xsl:param name="coordinates" select="'A011'"/>
   <xsl:param name="year" select="'2011'"/>
 
-  <xsl:variable name="rsp">
+  <xsl:variable name="rsp_option"><!-- contains the parametrized ruleset file as provided in the 'ruleset' param -->
+    <xsl:copy-of select="doc($ruleset)"/>
+  </xsl:variable>
+
+  <xsl:variable name="rsl"><!-- contains the location of the parametrized ruleset file -->
+    <xsl:choose>
+      <xsl:when test="$ruleset">
+        <xsl:value-of select="$rsp_option//ruleset"/>
+        <xsl:message>Reading ruleset from <xsl:value-of select="$rsp_option//ruleset"/></xsl:message>
+        <xsl:message>Cache calls will use settings in <xsl:value-of select="$rsp_option//ruleset"/></xsl:message>
+        <xsl:message>Input file is ignored</xsl:message>
+        <xsl:if test="$ruleset != $rsp_option//ruleset">
+          <xsl:message>Param file is ignored (<xsl:value-of select="$ruleset"/>)</xsl:message>
+        </xsl:if>
+      </xsl:when>
+      <xsl:otherwise><!-- actually not supported to provide rulest on stdin when using cache -->
+        <xsl:value-of select="//ruleset"/>
+        <xsl:message>Reading ruleset from <xsl:value-of select="//ruleset"/> (cf. input file &lt;ruleset&gt; element)</xsl:message>
+        <xsl:message>Cache calls will use settings in <xsl:value-of select="//ruleset"/></xsl:message>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="rsp"><!-- contains the parametrized ruleset file -->
     <xsl:choose>
       <xsl:when test="$cache = 'yes' or $cache = 'no-rs'">
         <xsl:copy-of select="doc($rsl)"/>
@@ -37,23 +60,7 @@
     </xsl:choose>
   </xsl:variable>
 
-  <xsl:variable name="rsl">
-    <xsl:choose>
-      <xsl:when test="$ruleset">
-        <xsl:value-of select="$ruleset"/>
-        <xsl:message>Reading ruleset from <xsl:value-of select="$ruleset"/></xsl:message>
-        <xsl:message>Cache calls will use settings in <xsl:value-of select="$ruleset"/></xsl:message>
-        <xsl:message>Input file is ignored</xsl:message>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="//ruleset"/>
-        <xsl:message>Reading ruleset from <xsl:value-of select="//ruleset"/> (cf. input file &lt;ruleset&gt; element)</xsl:message>
-        <xsl:message>Cache calls will use settings in <xsl:value-of select="//ruleset"/></xsl:message>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
-  <xsl:variable name="rs">
+  <xsl:variable name="rs"><!-- contains the un-parametrized ruleset file -->
     <xsl:choose>
       <xsl:when test="$cache = 'no' or $cache = 'no-rs'">
         <xsl:apply-templates select="$rsp/liturgicaldays" mode="build"/>
@@ -63,6 +70,8 @@
           <xsl:call-template name="replace">
             <xsl:with-param name="string" select="$rsp//cacheservice"/>
             <xsl:with-param name="parametergroup">
+              <doc>ruleset</doc>
+              <expiration>1</expiration>
 	      <url>
 		<xsl:call-template name="replace">
 		  <xsl:with-param name="encode" select="yes"/>
