@@ -114,7 +114,12 @@
               <date><xsl:value-of select="$date"/></date>
               <set><xsl:value-of select="$set"/></set>
               <score><xsl:value-of select="$score"/></score>
-              <minrankprecedence><xsl:value-of select="$minrankprecedence"/></minrankprecedence>
+              <minrankprecedence>
+                <xsl:choose>
+                  <xsl:when test="$minrankprecedence = ''">0<xsl:message>DEBUG minrankprecedence fallback to 0</xsl:message></xsl:when>
+                  <xsl:otherwise><xsl:value-of select="$minrankprecedence"/></xsl:otherwise>
+                </xsl:choose>
+              </minrankprecedence>
               <year>
                 <xsl:call-template name="liturgical-year">
                   <xsl:with-param name="date" select="$date"/>
