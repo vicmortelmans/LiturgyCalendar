@@ -8,13 +8,13 @@
                  -->
   <xsl:template match="daterules">
     <xsl:choose>
-    <xsl:when test="not(@option) or (@option and matches(/context/liturgicaldays/options,@option))">
-        <xsl:message>daterules for <xsl:value-of select="../name"/> (year : <xsl:value-of select="/context/year"/>)</xsl:message>
+    <xsl:when test="not(@option) or (@option and matches(/liturgicaldays/options,@option))">
+        <xsl:message>daterules for <xsl:value-of select="../name"/> (year : <xsl:value-of select="/liturgicaldays/year"/>)</xsl:message>
         <xsl:apply-templates/>
         <xsl:message>/daterules</xsl:message>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:message>daterules option mismatch(option : <xsl:value-of select="@option"/>, options : <xsl:value-of select="/context/liturgicaldays/options"/>)</xsl:message>
+        <xsl:message>daterules option mismatch(option : <xsl:value-of select="@option"/>, options : <xsl:value-of select="/liturgicaldays/options"/>)</xsl:message>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -26,27 +26,27 @@
   <xsl:template match="this-date">
     <!-- INPUT $date : yyyy-mm-dd
          OUTPUT yyyy-mm-dd -->
-    <xsl:message>this-date(date : <xsl:value-of select="normalize-space(/context/date)"/>)</xsl:message>
-    <xsl:value-of select="normalize-space(/context/date)"/>
+    <xsl:message>this-date(date : <xsl:value-of select="normalize-space(/liturgicaldays/date)"/>)</xsl:message>
+    <xsl:value-of select="normalize-space(/liturgicaldays/date)"/>
     <xsl:message>/this-date</xsl:message>
   </xsl:template>
     
   <xsl:template match="date">
-    <!-- INPUT /context/year, e.g. '2011', interpreted as liturgical year 2010-2011
+    <!-- INPUT /liturgicaldays/year, e.g. '2011', interpreted as liturgical year 2010-2011
                @day, @month, @year-1
          OUTPUT yyyy-mm-dd
          NOTE: if a date is meant in the first part of the liturgical year
                before 1/01, the attribute @year-1 must be set ! -->
-    <xsl:message>date(year : <xsl:value-of select="/context/year"/>, day : <xsl:value-of select="@day"/>, month : <xsl:value-of select="@month"/>, before 01/1 : <xsl:value-of select="@year-1"/>)</xsl:message>
+    <xsl:message>date(year : <xsl:value-of select="/liturgicaldays/year"/>, day : <xsl:value-of select="@day"/>, month : <xsl:value-of select="@month"/>, before 01/1 : <xsl:value-of select="@year-1"/>)</xsl:message>
     <xsl:choose>
       <xsl:when test="@*">
         <date>
           <xsl:choose>
             <xsl:when test="@year-1 = 'yes'">
-              <xsl:number value="number(/context/year) - 1" format="0001"/> 
+              <xsl:number value="number(/liturgicaldays/year) - 1" format="0001"/> 
             </xsl:when>
             <xsl:otherwise>
-              <xsl:number value="number(/context/year)" format="0001"/>          
+              <xsl:number value="number(/liturgicaldays/year)" format="0001"/>          
             </xsl:otherwise>
           </xsl:choose>
           <xsl:text>-</xsl:text>
@@ -63,12 +63,12 @@
   </xsl:template>
   
   <xsl:template match="easterdate">
-    <!-- INPUT /context/year
+    <!-- INPUT /liturgicaldays/year
          OUTPUT yyyy-mm-dd
-         NOTE: using /context/year is OK, easter never falls before 1/1 -->
-    <xsl:message>easterdate(year : <xsl:value-of select="/context/year"/>)</xsl:message>
+         NOTE: using /liturgicaldays/year is OK, easter never falls before 1/1 -->
+    <xsl:message>easterdate(year : <xsl:value-of select="/liturgicaldays/year"/>)</xsl:message>
     <xsl:variable name="easterdate" select="document('https://raw.github.com/vicmortelmans/BibleConfiguration/master/liturgy.calendar.roman-rite.easterdates.xml')/easterdates/easterdate"/>
-    <xsl:variable name="year" select="/context/year"/>
+    <xsl:variable name="year" select="/liturgicaldays/year"/>
     <xsl:number value="number($year)" format="0001"/>
     <xsl:text>-</xsl:text>
     <xsl:number value="$easterdate[year = $year]/month" format="01"/>
@@ -228,28 +228,30 @@
 
 
   <xsl:template match="relative-to">
-    <!-- INPUT /context/year
+    <!-- INPUT /liturgicaldays/year
                @name : liturgical day name
          OUTPUT yyyy-mm-dd : the date returned by rendering @name's daterules -->
     <xsl:message>relative-to(name : <xsl:value-of select="@name"/>)</xsl:message>
     <xsl:variable name="coordinates" select="//liturgicalday[name = current()/@name]/coordinates"/>
     <xsl:call-template name="cache">
+      <xsl:with-param name="ruleset" select="/liturgicaldays/ruleset"/>
       <xsl:with-param name="mode" select="'c2d'"/>
-      <xsl:with-param name="year" select="/context/year"/>
+      <xsl:with-param name="year" select="/liturgicaldays/year"/>
       <xsl:with-param name="coordinates" select="$coordinates"/>
     </xsl:call-template>
     <xsl:message>/relative-to</xsl:message>
   </xsl:template>
 
   <xsl:template match="relative-to-next-years">
-    <!-- INPUT /context/year
+    <!-- INPUT /liturgicaldays/year
                @name : liturgical day name
          OUTPUT yyyy-mm-dd : the date returned by rendering @name's daterules in next year-->
     <xsl:message>relative-to-next-years(name : <xsl:value-of select="@name"/>)</xsl:message>
     <xsl:variable name="coordinates" select="//liturgicalday[name = current()/@name]/coordinates"/>
     <xsl:call-template name="cache">
+      <xsl:with-param name="ruleset" select="/liturgicaldays/ruleset"/>
       <xsl:with-param name="mode" select="'c2d'"/>
-      <xsl:with-param name="year" select="/context/year + 1"/>
+      <xsl:with-param name="year" select="/liturgicaldays/year + 1"/>
       <xsl:with-param name="coordinates" select="$coordinates"/>
     </xsl:call-template>
     <xsl:message>/relative-to-next-years</xsl:message>
@@ -269,29 +271,37 @@
     <xsl:variable name="date">
             <xsl:apply-templates/>
     </xsl:variable>
+    <xsl:variable name="liturgicalday" select="ancestor::liturgicalday"/>
     <!-- render the coordinates in the specified sets -->
     <xsl:variable name="coordinates">
       <xsl:for-each select="//coordinaterules[matches($sets,@set)]">
 	<xsl:variable name="rankprecedence">
+<xsl:message>where am I ? <xsl:copy-of select="$liturgicalday"/></xsl:message>
+<xsl:message>rank : <xsl:value-of select="number($liturgicalday/rank/@nr)"/>; precedence : <xsl:value-of select="number($liturgicalday/precedence)"/></xsl:message>
 	  <xsl:choose>
-	    <xsl:when test="ancestor::liturgicalday/precedence">
-	      <xsl:value-of select="100 * ancestor::liturgicalday/rank/@nr + ancestor::liturgicalday/precedence"/>
+	    <xsl:when test="$liturgicalday/precedence">
+	      <xsl:value-of select="100 * number($liturgicalday/rank/@nr) + number($liturgicalday/precedence)"/>
 	    </xsl:when>
 	    <xsl:otherwise>
-	      <xsl:value-of select="100 * ancestor::liturgicalday/rank/@nr"/>
+	      <xsl:value-of select="100 * number($liturgicalday/rank/@nr)"/>
 	    </xsl:otherwise>
 	  </xsl:choose>
 	</xsl:variable>
         <xsl:variable name="ruleset">
           <!-- to avoid endless looping, the set-coordinates template should only return coordinates for days with minimum rank and precedence
                and even more: it should avoid executing the daterules for days with lesser rank and precedence -->
-          <xsl:message>transfer - finding overlap with minrankprecedence <xsl:value-of select="$rankprecedence"/></xsl:message>
-	  <set-coordinates set="{@set}" minrankprecedence="{$rankprecedence}">
-            <xsl:value-of select="$date"/>
-          </set-coordinates>
+          <liturgicaldays>
+            <xsl:copy-of select="/liturgicaldays/*[not(*)]"/>
+              <adhocruleset>
+		<xsl:message>transfer - finding overlap with minrankprecedence <xsl:value-of select="$rankprecedence"/></xsl:message>
+		<set-coordinates set="{@set}" minrankprecedence="{$rankprecedence}">
+		  <xsl:value-of select="$date"/>
+	        </set-coordinates>
+             </adhocruleset>
+          </liturgicaldays>
         </xsl:variable>
-<xsl:message>DEBUG start <xsl:copy-of select="$ruleset"/></xsl:message>
-        <xsl:apply-templates select="$ruleset/*"/>
+<xsl:message>DEBUG start adhocruleset in context <xsl:copy-of select="$ruleset"/></xsl:message>
+        <xsl:apply-templates select="$ruleset//adhocruleset/*"/>
 <xsl:message>DEBUG stop </xsl:message>
       </xsl:for-each>
     </xsl:variable>
@@ -326,25 +336,26 @@
 	-->
 
   <xsl:template match="coordinates">
-    <!-- INPUT /context/year : yyyy (contains liturgical year)
+    <!-- INPUT /liturgicaldays/year : yyyy (contains liturgical year)
          @set : name of a set of liturgical days
          @day : dd
          @month : mm
          @year-1 : yes (or absent)
          OUTPUT evaluation of the coordinaterules for @set for $date = yyyy-mm-dd -->
-    <xsl:message>coordinates(year : <xsl:value-of select="/context/year"/>, set : <xsl:value-of select="@set"/>, day : <xsl:value-of select="@day"/>, month : <xsl:value-of select="@month"/>, before 01/1 : <xsl:value-of select="@year-1"/>)</xsl:message>
+    <xsl:message>coordinates(year : <xsl:value-of select="/liturgicaldays/year"/>, set : <xsl:value-of select="@set"/>, day : <xsl:value-of select="@day"/>, month : <xsl:value-of select="@month"/>, before 01/1 : <xsl:value-of select="@year-1"/>)</xsl:message>
     <xsl:variable name="date">
       <xsl:choose>
         <xsl:when test="@year-1">
-          <xsl:value-of select="xs:date(concat(/context/year - 1,'-01-01')) + xs:yearMonthDuration(concat('P',@month - 1,'M')) + xs:dayTimeDuration(concat('P',@day - 1,'D'))"/>
+          <xsl:value-of select="xs:date(concat(/liturgicaldays/year - 1,'-01-01')) + xs:yearMonthDuration(concat('P',@month - 1,'M')) + xs:dayTimeDuration(concat('P',@day - 1,'D'))"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:message>DEBUG <xsl:copy-of select="."/></xsl:message>
-          <xsl:value-of select="xs:date(concat(/context/year,'-01-01')) + xs:yearMonthDuration(concat('P',@month - 1,'M')) + xs:dayTimeDuration(concat('P',@day - 1,'D'))"/>
+          <xsl:value-of select="xs:date(concat(/liturgicaldays/year,'-01-01')) + xs:yearMonthDuration(concat('P',@month - 1,'M')) + xs:dayTimeDuration(concat('P',@day - 1,'D'))"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
     <xsl:call-template name="cache">
+      <xsl:with-param name="ruleset" select="/liturgicaldays/ruleset"/>
       <xsl:with-param name="mode" select="'d2c'"/>
       <xsl:with-param name="set" select="@set"/>
       <xsl:with-param name="date" select="$date"/>
@@ -360,7 +371,9 @@
     <xsl:variable name="date">
       <xsl:apply-templates/>
     </xsl:variable>
+<xsl:message>DEBUG set-coordinates Where am I? <xsl:copy-of select="/"/></xsl:message>
     <xsl:call-template name="cache">
+      <xsl:with-param name="ruleset" select="/liturgicaldays/ruleset"/>
       <xsl:with-param name="mode" select="'d2c'"/>
       <xsl:with-param name="date" select="$date"/>
       <xsl:with-param name="set" select="@set"/>
@@ -372,11 +385,11 @@
   <xsl:template match="query-set">
   <!-- INPUT $date : yyyy-mm-dd
        @set : name of a set of liturgical days
-       OUTPUT for each liturgical day in @set, that has higher rankprecedence than /context/minrankprecedence, the daterules are applied and
+       OUTPUT for each liturgical day in @set, that has higher rankprecedence than /liturgicaldays/minrankprecedence, the daterules are applied and
        if the date matches $date, 
        the <coordinates> for that liturgical day are returned.
        If @anydate is specified all matching coordinates are returned concatenated. -->
-    <xsl:message>query-set(date : <xsl:value-of select="normalize-space(/context/date)"/>, set : <xsl:value-of select="@set"/>)</xsl:message>
+    <xsl:message>query-set(date : <xsl:value-of select="normalize-space(/liturgicaldays/date)"/>, set : <xsl:value-of select="@set"/>)</xsl:message>
     <xsl:for-each select="//liturgicalday[set = current()/@set]">
       <xsl:variable name="rankprecedence">
         <xsl:choose>
@@ -388,12 +401,12 @@
           </xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
-      <xsl:message>querying <xsl:value-of select="set"/>; <xsl:value-of select="number(/context/minrankprecedence)"/> = 0 or &gt; <xsl:value-of select="number($rankprecedence)"/></xsl:message>
-      <xsl:if test="number(/context/minrankprecedence) = 0 or number(/context/minrankprecedence) &gt; number($rankprecedence)">
+      <xsl:message>querying <xsl:value-of select="set"/>; <xsl:value-of select="number(/liturgicaldays/minrankprecedence)"/> = 0 or &gt; <xsl:value-of select="number($rankprecedence)"/></xsl:message>
+      <xsl:if test="number(/liturgicaldays/minrankprecedence) = 0 or number(/liturgicaldays/minrankprecedence) &gt; number($rankprecedence)">
 	<xsl:variable name="candidate">
 	  <xsl:apply-templates select="daterules"/>
 	</xsl:variable>
-	<xsl:if test="not(normalize-space($candidate) = '') and ($candidate = /context/date or @anydate)">
+	<xsl:if test="not(normalize-space($candidate) = '') and ($candidate = /liturgicaldays/date or @anydate)">
 	  <xsl:value-of select="coordinates"/>
 	</xsl:if>
       </xsl:if>
@@ -405,22 +418,22 @@
   <!-- INPUT $date : yyyy-mm-dd
        @set : name of a set of liturgical days
        coordinates : specific coordinates
-       OUTPUT for the liturgical day(s) in @set that match @coordinates, and that have higher rankprecedence than /context/minrankprecedence, 
+       OUTPUT for the liturgical day(s) in @set that match @coordinates, and that have higher rankprecedence than /liturgicaldays/minrankprecedence, 
        the daterules are applied and if the date matches $date, 
        the <coordinates> for that liturgical day are returned.
        If anydate is specified all matching coordinates are returned concatenated. -->
-    <xsl:message>query-coordinates(date : <xsl:value-of select="normalize-space(/context/date)"/>, set : <xsl:value-of select="@set"/>, coordinates to be evaluated)</xsl:message>
+    <xsl:message>query-coordinates(date : <xsl:value-of select="normalize-space(/liturgicaldays/date)"/>, set : <xsl:value-of select="@set"/>, coordinates to be evaluated)</xsl:message>
     <xsl:variable name="coordinates">
       <xsl:apply-templates/>
     </xsl:variable>
     <xsl:for-each select="//liturgicalday[set=current()/@set and coordinates=$coordinates]">
       <xsl:message>querying <xsl:value-of select="coordinates"/> in <xsl:value-of select="set"/></xsl:message>
-      <xsl:if test="number(/context/minrankprecedence) = 0 or number(/context/minrankprecedence) &gt; 100 * number(rank/@nr) + number(precedence)">
+      <xsl:if test="number(/liturgicaldays/minrankprecedence) = 0 or number(/liturgicaldays/minrankprecedence) &gt; 100 * number(rank/@nr) + number(precedence)">
 	<xsl:variable name="candidate">
 	  <xsl:apply-templates select="daterules"/>
 	</xsl:variable>
-	<xsl:message>testing if <xsl:value-of select="$candidate"/> equals <xsl:value-of select="/context/date"/></xsl:message>
-	<xsl:if test="not(normalize-space($candidate) = '') and ($candidate = /context/date or @anydate)">
+	<xsl:message>testing if <xsl:value-of select="$candidate"/> equals <xsl:value-of select="/liturgicaldays/date"/></xsl:message>
+	<xsl:if test="not(normalize-space($candidate) = '') and ($candidate = /liturgicaldays/date or @anydate)">
 	  <xsl:value-of select="coordinates"/>
 	</xsl:if>
       </xsl:if>
@@ -527,12 +540,12 @@
     <!-- tricky: day can be a list of multiple days, e.g. "Saturday Friday Thursday Wednesday"
          and format-date()'s output is contaminated like this: "[Language: en]Wednesday" 
          so a regex is needed to remove the [...]-part from the format-date()-output -->
-    <xsl:message>test-day(day to be evaluated, date : <xsl:value-of select="normalize-space(/context/date)"/>)</xsl:message>
+    <xsl:message>test-day(day to be evaluated, date : <xsl:value-of select="normalize-space(/liturgicaldays/date)"/>)</xsl:message>
     <xsl:variable name="date">
       <xsl:apply-templates/>
     </xsl:variable>
     <xsl:variable name="day">
-      <xsl:value-of select="replace(format-date(xs:date(/context/date),'[F]'),'(\[.*\])?(.+)','$2')"/>
+      <xsl:value-of select="replace(format-date(xs:date(/liturgicaldays/date),'[F]'),'(\[.*\])?(.+)','$2')"/>
     </xsl:variable>
     <xsl:if test="matches(@day,$day)">true</xsl:if>
     <xsl:message>/test-day</xsl:message>
@@ -670,7 +683,7 @@
       <weeks-before nr="3">
         <weekday-before day="Sunday">
           <date>
-            <xsl:number value="number(/context/year)" format="0001"/>
+            <xsl:number value="number(/liturgicaldays/year)" format="0001"/>
             <xsl:text>-</xsl:text>
             <xsl:number value="12"/>
             <xsl:text>-</xsl:text>
@@ -684,10 +697,10 @@
     </xsl:variable>
     <xsl:choose>
       <xsl:when test="xs:date($date) &lt; xs:date($startDay)">
-        <xsl:value-of select="format-number(number(/context/year),'0000')"/>
+        <xsl:value-of select="format-number(number(/liturgicaldays/year),'0000')"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="format-number(number(/context/year) + 1,'0000')"/>
+        <xsl:value-of select="format-number(number(/liturgicaldays/year) + 1,'0000')"/>
       </xsl:otherwise>
     </xsl:choose>
     <xsl:message>/yyyy</xsl:message>

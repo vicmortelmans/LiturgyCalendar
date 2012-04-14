@@ -19,6 +19,7 @@
   <xsl:template match="context" mode="d2c">
     <xsl:message>context</xsl:message>
     <xsl:apply-templates mode="d2c"/>
+    <xsl:message>/context</xsl:message>
   </xsl:template>
 
   <xsl:template match="liturgicaldays" mode="d2c">
@@ -27,14 +28,14 @@
       <xsl:apply-templates mode="d2c"/>
     </xsl:variable>
     <xsl:variable name="this-cycle-sundays">
-      <xsl:value-of select="$cycle-sundays/map[@number = /context/year mod 3]/@cycle"/>
+      <xsl:value-of select="$cycle-sundays/map[@number = /liturgicaldays/year mod 3]/@cycle"/>
     </xsl:variable>
     <xsl:variable name="this-cycle-weekdays">
-      <xsl:value-of select="$cycle-weekdays/map[@number = /context/year mod 2]/@cycle"/>
+      <xsl:value-of select="$cycle-weekdays/map[@number = /liturgicaldays/year mod 2]/@cycle"/>
     </xsl:variable>
     <results>
       <xsl:choose>
-        <xsl:when test="/context/score = 'yes'">
+        <xsl:when test="/liturgicaldays/score = 'yes'">
           <!-- there's no other result with higher score OR this result's
           coincides with matches another result-->
           <xsl:variable name="winner" 
@@ -74,10 +75,12 @@
         </xsl:otherwise>
       </xsl:choose>
     </results>
+    <xsl:message>/liturgicaldays</xsl:message>
   </xsl:template>
 
-  <xsl:template match="coordinaterules[/context/set = '' or /context/set = @set]" mode="d2c">
-    <xsl:variable name="calendardate" select="format-date(xs:date(/context/date),'[M01]-[D01]')"/>
+  <xsl:template match="coordinaterules[/liturgicaldays/set = '' or /context/set = @set]" mode="d2c">
+    <xsl:message>coordinaterules</xsl:message>
+    <xsl:variable name="calendardate" select="format-date(xs:date(/liturgicaldays/date),'[M01]-[D01]')"/>
     <xsl:message>checking coordinaterules for <xsl:value-of select="@set"/> on <xsl:value-of select="$calendardate"/></xsl:message>
     <xsl:if test="(@start-date &lt;= $calendardate) and
                   ($calendardate &lt;= @stop-date)">
@@ -102,7 +105,7 @@
           </xsl:variable>
           <xsl:message>precedence = <xsl:value-of select="$precedence"/></xsl:message>
           <xsl:variable name="rankprecedence" select="100 * $rank + $precedence"/>
-          <xsl:if test="number($rankprecedence) &gt; number(/context/minrankprecedence)">
+          <xsl:if test="number($rankprecedence) &gt; number(/liturgicaldays/minrankprecedence)">
 	    <xsl:variable name="overlap-priority" select="//coordinaterules[@set = current()/@set]/@overlap-priority"/>
 	    <xsl:message>overlap-priority = <xsl:value-of select="$overlap-priority"/></xsl:message>
 	    <xsl:variable name="score" select="format-number(10000 * $rank + 100 * $precedence + $overlap-priority,'000000')"/>
@@ -113,6 +116,7 @@
         </xsl:if>
       </xsl:if>
     </xsl:if>
+    <xsl:message>/coordinaterules</xsl:message>
   </xsl:template>
     
   <xsl:template match="coordinaterules" mode="d2c"/>

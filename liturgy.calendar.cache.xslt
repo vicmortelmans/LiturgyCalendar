@@ -4,6 +4,7 @@
     xmlns:fn="http://www.w3.org/2005/xpath-functions">
     
   <xsl:template name="cache">
+    <xsl:param name="ruleset"/>
     <xsl:param name="mode" select="'d2c'"/>
     <!-- d2c -->
     <xsl:param name="date"/>
@@ -13,7 +14,7 @@
     <!-- c2d -->
     <xsl:param name="coordinates" select="'A011'"/>
     <xsl:param name="year" select="'2011'"/>
-    <xsl:message>cache(mode : <xsl:value-of select="$mode"/>;date : <xsl:value-of select="$date"/>;set : <xsl:value-of select="$set"/>;score : <xsl:value-of select="$score"/>;coordinates : <xsl:value-of select="$coordinates"/>;year : <xsl:value-of select="$year"/>)</xsl:message>
+    <xsl:message>cache(ruleset : <xsl:value-of select="$ruleset"/>;mode : <xsl:value-of select="$mode"/>;date : <xsl:value-of select="$date"/>;set : <xsl:value-of select="$set"/>;score : <xsl:value-of select="$score"/>;coordinates : <xsl:value-of select="$coordinates"/>;year : <xsl:value-of select="$year"/>)</xsl:message>
     <xsl:choose>
       <xsl:when test="$cache = 'no'">
         <xsl:call-template name="calendar">
@@ -28,30 +29,32 @@
       </xsl:when>
       <xsl:otherwise>
         <xsl:variable name="url">
+<xsl:message>DEBUG (cache) cacheservice : <xsl:value-of select="//cacheservice"/></xsl:message>
+<xsl:message>DEBUG (cache) restervice : <xsl:value-of select="//restservice"/></xsl:message>
+<xsl:message>DEBUG (cache) context : <xsl:copy-of select="/"/></xsl:message>
           <xsl:call-template name="replace">
+            <xsl:with-param name="encode" select="'yes'"/>
             <xsl:with-param name="string" select="//cacheservice"/>
             <xsl:with-param name="parametergroup">
-              <parametergroup>
-                <url>
-                  <xsl:call-template name="replace">
-                    <xsl:with-param name="encode" select="yes"/>
-                    <xsl:with-param name="string" select="//restservice"/>
-                    <xsl:with-param name="parametergroup">
-                      <parametergroup>
-                        <mode><xsl:value-of select="$mode"/></mode>
-                        <cache><xsl:value-of select="$cache"/></cache>
-                        <date><xsl:if test="$date"><xsl:value-of select="$date"/></xsl:if></date>
-                        <set><xsl:if test="$set"><xsl:value-of select="$set"/></xsl:if></set>
-                        <score><xsl:if test="$score"><xsl:value-of select="$score"/></xsl:if></score>
-                        <minrankprecedence><xsl:if test="$minrankprecedence"><xsl:value-of select="$minrankprecedence"/></xsl:if></minrankprecedence>
-                        <coordinates><xsl:if test="$coordinates"><xsl:value-of select="$coordinates"/></xsl:if></coordinates>
-                        <year><xsl:if test="$year"><xsl:value-of select="$year"/></xsl:if></year>
-                        <ruleset></ruleset>
-                      </parametergroup>
-                    </xsl:with-param>
-                  </xsl:call-template>
-                </url>
-              </parametergroup>
+	      <doc>calendar</doc>
+	      <expiration>1</expiration>
+	      <url>
+		<xsl:call-template name="replace">
+		  <xsl:with-param name="encode" select="'yes'"/>
+		  <xsl:with-param name="string" select="//restservice"/>
+		  <xsl:with-param name="parametergroup">
+		    <ruleset><xsl:value-of select="$ruleset"/></ruleset>
+		    <mode><xsl:value-of select="$mode"/></mode>
+		    <cache><xsl:value-of select="$cache"/></cache>
+		    <date><xsl:if test="$date"><xsl:value-of select="$date"/></xsl:if></date>
+		    <set><xsl:if test="$set"><xsl:value-of select="$set"/></xsl:if></set>
+		    <score><xsl:if test="$score"><xsl:value-of select="$score"/></xsl:if></score>
+		    <minrankprecedence><xsl:if test="$minrankprecedence"><xsl:value-of select="$minrankprecedence"/></xsl:if></minrankprecedence>
+		    <coordinates><xsl:if test="$coordinates"><xsl:value-of select="$coordinates"/></xsl:if></coordinates>
+		    <year><xsl:if test="$year"><xsl:value-of select="$year"/></xsl:if></year>
+		  </xsl:with-param>
+		</xsl:call-template>
+	      </url>
             </xsl:with-param>
           </xsl:call-template>
         </xsl:variable>
