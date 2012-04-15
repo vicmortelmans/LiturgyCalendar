@@ -300,9 +300,7 @@
              </adhocruleset>
           </liturgicaldays>
         </xsl:variable>
-<xsl:message>DEBUG start adhocruleset in context <xsl:copy-of select="$ruleset"/></xsl:message>
         <xsl:apply-templates select="$ruleset//adhocruleset/*"/>
-<xsl:message>DEBUG stop </xsl:message>
       </xsl:for-each>
     </xsl:variable>
     <xsl:message>transfer - coordinates: <xsl:copy-of select="$coordinates"/></xsl:message>
@@ -349,7 +347,6 @@
           <xsl:value-of select="xs:date(concat(/liturgicaldays/year - 1,'-01-01')) + xs:yearMonthDuration(concat('P',@month - 1,'M')) + xs:dayTimeDuration(concat('P',@day - 1,'D'))"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:message>DEBUG <xsl:copy-of select="."/></xsl:message>
           <xsl:value-of select="xs:date(concat(/liturgicaldays/year,'-01-01')) + xs:yearMonthDuration(concat('P',@month - 1,'M')) + xs:dayTimeDuration(concat('P',@day - 1,'D'))"/>
         </xsl:otherwise>
       </xsl:choose>
@@ -371,7 +368,6 @@
     <xsl:variable name="date">
       <xsl:apply-templates/>
     </xsl:variable>
-<xsl:message>DEBUG set-coordinates Where am I? <xsl:copy-of select="/"/></xsl:message>
     <xsl:call-template name="cache">
       <xsl:with-param name="ruleset" select="/liturgicaldays/ruleset"/>
       <xsl:with-param name="mode" select="'d2c'"/>

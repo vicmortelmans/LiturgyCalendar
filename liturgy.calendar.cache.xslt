@@ -14,7 +14,7 @@
     <!-- c2d -->
     <xsl:param name="coordinates" select="'A011'"/>
     <xsl:param name="year" select="'2011'"/>
-    <xsl:message>cache(ruleset : <xsl:value-of select="$ruleset"/>;mode : <xsl:value-of select="$mode"/>;date : <xsl:value-of select="$date"/>;set : <xsl:value-of select="$set"/>;score : <xsl:value-of select="$score"/>;coordinates : <xsl:value-of select="$coordinates"/>;year : <xsl:value-of select="$year"/>)</xsl:message>
+    <xsl:message>cache(ruleset : <xsl:value-of select="$ruleset"/>;mode : <xsl:value-of select="$mode"/>;date : <xsl:value-of select="$date"/>;set : <xsl:value-of select="$set"/>;score : <xsl:value-of select="$score"/>;coordinates : <xsl:value-of select="$coordinates"/>;year : <xsl:value-of select="$year"/>;cacheservice : <xsl:value-of select="//cacheservice"/>;restservice : <xsl:value-of select="//restservice"/> )</xsl:message>
     <xsl:choose>
       <xsl:when test="$cache = 'no'">
         <xsl:call-template name="calendar">
@@ -29,9 +29,6 @@
       </xsl:when>
       <xsl:otherwise>
         <xsl:variable name="url">
-<xsl:message>DEBUG (cache) cacheservice : <xsl:value-of select="//cacheservice"/></xsl:message>
-<xsl:message>DEBUG (cache) restervice : <xsl:value-of select="//restservice"/></xsl:message>
-<xsl:message>DEBUG (cache) context : <xsl:copy-of select="/"/></xsl:message>
           <xsl:call-template name="replace">
             <xsl:with-param name="encode" select="'yes'"/>
             <xsl:with-param name="string" select="//cacheservice"/>
