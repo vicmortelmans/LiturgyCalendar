@@ -14,7 +14,10 @@
     <!-- c2d -->
     <xsl:param name="coordinates" select="'A011'"/>
     <xsl:param name="year" select="'2011'"/>
-    <xsl:message>cache(ruleset : <xsl:value-of select="$ruleset"/>;mode : <xsl:value-of select="$mode"/>;date : <xsl:value-of select="$date"/>;set : <xsl:value-of select="$set"/>;score : <xsl:value-of select="$score"/>;coordinates : <xsl:value-of select="$coordinates"/>;year : <xsl:value-of select="$year"/>;cacheservice : <xsl:value-of select="//cacheservice"/>;restservice : <xsl:value-of select="//restservice"/> )</xsl:message>
+    <!-- if not in context -->
+    <xsl:param name="cacheservice" select="//cacheservice"/>
+    <xsl:param name="restservice" select="//restservice"/>
+    <xsl:message>cache(ruleset : <xsl:value-of select="$ruleset"/>;mode : <xsl:value-of select="$mode"/>;date : <xsl:value-of select="$date"/>;set : <xsl:value-of select="$set"/>;score : <xsl:value-of select="$score"/>;coordinates : <xsl:value-of select="$coordinates"/>;year : <xsl:value-of select="$year"/>;cacheservice : <xsl:value-of select="$cacheservice"/>;restservice : <xsl:value-of select="$restservice"/> )</xsl:message>
     <xsl:choose>
       <xsl:when test="$cache = 'no'">
         <xsl:call-template name="calendar">
@@ -31,14 +34,14 @@
         <xsl:variable name="url">
           <xsl:call-template name="replace">
             <xsl:with-param name="encode" select="'yes'"/>
-            <xsl:with-param name="string" select="//cacheservice"/>
+            <xsl:with-param name="string" select="$cacheservice"/>
             <xsl:with-param name="parametergroup">
 	      <doc>calendar</doc>
 	      <expiration>1</expiration>
 	      <url>
 		<xsl:call-template name="replace">
 		  <xsl:with-param name="encode" select="'yes'"/>
-		  <xsl:with-param name="string" select="//restservice"/>
+		  <xsl:with-param name="string" select="$restservice"/>
 		  <xsl:with-param name="parametergroup">
 		    <ruleset><xsl:value-of select="$ruleset"/></ruleset>
 		    <mode><xsl:value-of select="$mode"/></mode>

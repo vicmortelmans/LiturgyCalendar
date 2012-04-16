@@ -238,10 +238,12 @@
 	<xsl:otherwise>
 	  <xsl:variable name="startnextyear">
 	    <xsl:call-template name="cache">
-              <xsl:with-param name="ruleset" select="/liturgicaldays/ruleset"/>
+              <xsl:with-param name="ruleset" select="$rsl"/>
 	      <xsl:with-param name="mode" select="'c2d'"/>
 	      <xsl:with-param name="year" select="$sameyear + 1"/>
 	      <xsl:with-param name="coordinates" select="'A011'"/>
+              <xsl:with-param name="cacheservice" select="$rsp//cacheservice"/>
+              <xsl:with-param name="restservice" select="$rsp//restservice"/>
 	    </xsl:call-template>
 	  </xsl:variable>
 	  <xsl:choose>
