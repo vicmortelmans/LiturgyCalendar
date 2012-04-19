@@ -51,7 +51,7 @@
   <xsl:variable name="rsp"><!-- contains the parametrized ruleset file -->
     <xsl:choose>
       <xsl:when test="$cache = 'yes' or $cache = 'no-rs'">
-        <xsl:copy-of select="doc($rsl)"/>
+        <xsl:copy-of select="document(replace($rsl,'#.*$',''))"/>
       </xsl:when>
       <xsl:otherwise><!-- cache = 'no' -->
         <xsl:copy-of select="/"/>
