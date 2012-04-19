@@ -71,8 +71,6 @@
 	    <xsl:with-param name="encode" select="'yes'"/>
             <xsl:with-param name="string" select="$rsp//cacheservice"/>
             <xsl:with-param name="parametergroup">
-              <doc>ruleset</doc>
-              <expiration>1</expiration>
 	      <url>
 		<xsl:call-template name="replace">
 		  <xsl:with-param name="encode" select="'yes'"/>
