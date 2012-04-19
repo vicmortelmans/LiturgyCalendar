@@ -92,7 +92,7 @@
           </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="data">
-          <xsl:copy-of select="document($url)"/>
+          <xsl:copy-of select="document(replace($url,'#.*$',''))"/>
         </xsl:variable>
         <xsl:copy-of select="$data"/>
         <xsl:message>REST call to <xsl:value-of select="$url"/></xsl:message>
