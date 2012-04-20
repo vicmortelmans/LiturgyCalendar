@@ -26,7 +26,7 @@
   <xsl:param name="year" select="'2011'"/>
 
   <xsl:variable name="rsp_option"><!-- contains the parametrized ruleset file as provided in the 'ruleset' param -->
-    <xsl:copy-of select="doc($ruleset)"/>
+    <xsl:copy-of select="document(replace($ruleset,'#.*$',''))"/>
   </xsl:variable>
 
   <xsl:variable name="rsl"><!-- contains the location of the parametrized ruleset file -->
