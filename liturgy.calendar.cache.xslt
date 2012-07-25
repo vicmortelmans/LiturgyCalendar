@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions"
+  xmlns:saxon="http://saxon.sf.net/" extension-element-prefixes="saxon">
   <xsl:output name="xml" method="xml" indent="yes"/>
   <xsl:output method="xml" indent="yes"/>
   <xsl:template name="cache">
@@ -34,11 +35,17 @@
             <xsl:variable name="result">
               <xsl:call-template name="router"/>
             </xsl:variable>
-            <xsl:result-document href="{$file}" format="xml">
-              <item url="{$url}">
-                <xsl:copy-of select="$result"/>
-              </item>
-            </xsl:result-document>
+            <saxon:try>
+              <xsl:result-document href="{$file}" format="xml">
+                <item url="{$url}">
+                  <xsl:copy-of select="$result"/>
+                </item>
+              </xsl:result-document>
+              <saxon:catch errors="*">
+                <xsl:message>Error caught while trying to write to <xsl:value-of select="$url"
+                  /></xsl:message>
+              </saxon:catch>
+            </saxon:try>
             <xsl:copy-of select="$result"/>
           </xsl:otherwise>
         </xsl:choose>
