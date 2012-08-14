@@ -6,8 +6,9 @@
   <xsl:output method="xml" indent="yes"/>
   <xsl:template name="cache">
     <xsl:param name="cache" select="'no'" tunnel="yes"/>
+    <xsl:param name="cachecalling" select="'no'"/>
     <xsl:choose>
-      <xsl:when test="$cache = 'web'">
+      <xsl:when test="$cache = 'web' and $cachecalling = 'no'">
         <xsl:variable name="url">
           <xsl:call-template name="url"/>
         </xsl:variable>
@@ -51,7 +52,7 @@
         </xsl:choose>
       </xsl:when>
       <xsl:otherwise>
-        <!-- $cache = 'no' or 'webskip' -->
+        <!-- $cache = 'no' or $cachecalling = 'yes' -->
         <xsl:call-template name="router"/>
       </xsl:otherwise>
     </xsl:choose>
@@ -133,12 +134,7 @@
       <xsl:value-of select="$mode"/>
     </mode>
     <cache>
-      <xsl:choose>
-        <xsl:when test="$cache = 'web'">webskip</xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="$cache"/>
-        </xsl:otherwise>
-      </xsl:choose>
+      <xsl:value-of select="$cache"/>
     </cache>
     <date>
       <xsl:if test="$date">

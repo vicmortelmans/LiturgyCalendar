@@ -22,7 +22,7 @@
 
   <xsl:variable name="rsp">
     <!-- contains the parametrized ruleset file -->
-    <xsl:copy-of select="document($ruleset)/liturgicaldays/*"/>
+    <xsl:copy-of select="document(substring-before($ruleset,'#'))/liturgicaldays/*"/>
   </xsl:variable>
 
   <xsl:variable name="rs">
@@ -46,6 +46,9 @@
     <xsl:call-template name="cache">
       <xsl:with-param name="mode" select="$mode" tunnel="yes"/>
       <xsl:with-param name="cache" select="$cache" tunnel="yes"/>
+      <xsl:with-param name="cachecalling" select="'yes'">
+        <!-- any external call is assumed to be coming from the cache -->
+      </xsl:with-param>
       <xsl:with-param name="date" select="$date" tunnel="yes"/>
       <xsl:with-param name="set" select="$set" tunnel="yes"/>
       <xsl:with-param name="score" select="$score" tunnel="yes"/>
