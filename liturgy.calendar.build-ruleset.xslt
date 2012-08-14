@@ -5,6 +5,12 @@
     <xsl:copy-of select="."/>
   </xsl:template>
   
+  <xsl:template match="liturgicaldays" mode="build">
+    <xsl:copy>
+      <xsl:apply-templates mode="build"/>
+    </xsl:copy>
+  </xsl:template>
+  
   <xsl:template match="includeliturgicaldays" mode="build">
     <xsl:apply-templates select="doc(.)/liturgicaldays/*" mode="build"/>
   </xsl:template>

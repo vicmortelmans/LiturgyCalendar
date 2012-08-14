@@ -4,6 +4,7 @@
   xmlns:saxon="http://saxon.sf.net/" extension-element-prefixes="saxon">
   <xsl:output name="xml" method="xml" indent="yes"/>
   <xsl:output method="xml" indent="yes"/>
+  
   <xsl:template name="cache">
     <xsl:param name="cache" select="'no'" tunnel="yes"/>
     <xsl:param name="cachecalling" select="'no'"/>
@@ -25,6 +26,7 @@
         <xsl:variable name="file">
           <xsl:call-template name="file"/>
         </xsl:variable>
+        <xsl:message>DEBUG going to work with <xsl:value-of select="$url"/>, <xsl:value-of select="$collection"/> and <xsl:value-of select="$file"/></xsl:message>
         <xsl:variable name="cache">
           <xsl:copy-of select="collection(iri-to-uri($collection))"/>
         </xsl:variable>
@@ -61,12 +63,12 @@
   <xsl:template name="url">
     <xsl:call-template name="replace">
       <xsl:with-param name="encode" select="'yes'"/>
-      <xsl:with-param name="string" select="$rsp/cacheservice"/>
+      <xsl:with-param name="string" select="$rsp/liturgicaldays/cacheservice"/>
       <xsl:with-param name="parametergroup">
         <url>
           <xsl:call-template name="replace">
             <xsl:with-param name="encode" select="'yes'"/>
-            <xsl:with-param name="string" select="$rsp/restservice"/>
+            <xsl:with-param name="string" select="$rsp/liturgicaldays/restservice"/>
             <xsl:with-param name="parametergroup">
               <xsl:call-template name="parametergroup"/>
             </xsl:with-param>
@@ -90,7 +92,8 @@
       <xsl:with-param name="string" select="$pcollection"/>
       <xsl:with-param name="parametergroup">
         <cachefolder>
-          <xsl:value-of select="$rsp/cachefolder"/>
+          <xsl:message>DEBUG filling in cachefolder <xsl:copy-of select="$rsp"/></xsl:message>
+          <xsl:value-of select="$rsp/liturgicaldays/cachefolder"/>
         </cachefolder>
         <xsl:call-template name="parametergroup"/>
       </xsl:with-param>
@@ -111,7 +114,7 @@
       <xsl:with-param name="string" select="$pfile"/>
       <xsl:with-param name="parametergroup">
         <cachefolder>
-          <xsl:value-of select="$rsp/cachefolder"/>
+          <xsl:value-of select="$rsp/liturgicaldays/cachefolder"/>
         </cachefolder>
         <xsl:call-template name="parametergroup"/>
       </xsl:with-param>

@@ -22,7 +22,14 @@
 
   <xsl:variable name="rsp">
     <!-- contains the parametrized ruleset file -->
-    <xsl:copy-of select="document(substring-before($ruleset,'#'))/liturgicaldays/*"/>
+    <xsl:choose>
+      <xsl:when test="matches($ruleset,'#')">
+        <xsl:copy-of select="document(substring-before($ruleset,'#'))"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:copy-of select="document($ruleset)"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:variable>
 
   <xsl:variable name="rs">
@@ -42,7 +49,7 @@
   </xsl:template>
 
   <xsl:template match="/">
-    <!-- matches the root of the dummy input XML file -->
+    <!-- *main* - matches the root of the dummy input XML file -->
     <xsl:call-template name="cache">
       <xsl:with-param name="mode" select="$mode" tunnel="yes"/>
       <xsl:with-param name="cache" select="$cache" tunnel="yes"/>
@@ -80,7 +87,7 @@
     <xsl:param name="coordinates" select="'A011'" tunnel="yes"/>
     <xsl:param name="year" select="'2011'" tunnel="yes"/>
     <xsl:variable name="context">
-      <xsl:copy-of select="$rs"/>
+      <xsl:copy-of select="$rs/liturgicaldays/*"/>
       <mode>
         <xsl:value-of select="$mode"/>
       </mode>
@@ -166,8 +173,7 @@
                   </xsl:variable>
                   <xsl:message>precedence = <xsl:value-of select="$precedence"/></xsl:message>
                   <xsl:variable name="rankprecedence" select="100 * $rank + $precedence"/>
-                  <xsl:if
-                    test="number($rankprecedence) &gt; number(/minrankprecedence)">
+                  <xsl:if test="number($rankprecedence) &gt; number(/minrankprecedence)">
                     <xsl:variable name="overlap-priority"
                       select="$context/coordinaterules[@set = current()/@set]/@overlap-priority"/>
                     <xsl:message>overlap-priority = <xsl:value-of select="$overlap-priority"
@@ -267,8 +273,10 @@
               <xsl:with-param name="mode" select="'c2d'" tunnel="yes"/>
               <xsl:with-param name="year" select="$sameyear + 1" tunnel="yes"/>
               <xsl:with-param name="coordinates" select="'A011'" tunnel="yes"/>
-              <xsl:with-param name="cacheservice" select="$rsp/cacheservice" tunnel="yes"/>
-              <xsl:with-param name="restservice" select="$rsp/restservice" tunnel="yes"/>
+              <xsl:with-param name="cacheservice" select="$rsp/liturgicaldays/cacheservice"
+                tunnel="yes"/>
+              <xsl:with-param name="restservice" select="$rsp/liturgicaldays/restservice"
+                tunnel="yes"/>
             </xsl:call-template>
           </xsl:variable>
           <xsl:choose>
