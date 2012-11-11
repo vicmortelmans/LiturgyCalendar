@@ -100,9 +100,10 @@
       <day name="Friday" index="6"/>
       <day name="Saturday" index="7"/>
     </xsl:variable>
+    <xsl:variable name="formatdate" select="format-date(xs:date($date),'[F]','en',(),())"/>
     <xsl:variable name="r">
       <xsl:value-of
-        select="$weekdayindex/day[matches(replace(format-date(xs:date($date),'[F]'),'(\[.*\])?(.+)','$2'),@name)]/@index"
+        select="$weekdayindex/day[matches(replace($formatdate,'(\[.*\])?(.+)','$2'),@name)]/@index"
       />
     </xsl:variable>
     <xsl:variable name="t">
@@ -125,8 +126,9 @@
     </xsl:variable>
     <!--xsl:message><xsl:value-of select="concat($t,'|',$r,'|',$d)"/></xsl:message-->
     <date>
+      <xsl:variable name="newdate" select="xs:date($date) + xs:dayTimeDuration($daysDuration)"/>
       <xsl:value-of
-        select="replace(format-date(xs:date($date) + xs:dayTimeDuration($daysDuration), '[Y0001]-[M01]-[D01]'),'(\[.*\])?(.+)','$2')"
+        select="replace(format-date($newdate, '[Y0001]-[M01]-[D01]','en',(),()),'(\[.*\])?(.+)','$2')"
       />
     </date>
     <xsl:message>/weekday-after</xsl:message>
@@ -175,7 +177,7 @@
     </xsl:variable>
     <date>
       <xsl:value-of
-        select="replace(format-date(xs:date($date) - xs:dayTimeDuration($daysDuration), '[Y0001]-[M01]-[D01]'),'(\[.*\])?(.+)','$2')"
+        select="replace(format-date(xs:date($date) - xs:dayTimeDuration($daysDuration), '[Y0001]-[M01]-[D01]','en',(),()),'(\[.*\])?(.+)','$2')"
       />
     </date>
     <xsl:message>/days-before</xsl:message>
@@ -195,7 +197,7 @@
     </xsl:variable>
     <date>
       <xsl:value-of
-        select="replace(format-date(xs:date($date) + xs:dayTimeDuration($daysDuration), '[Y0001]-[M01]-[D01]'),'(\[.*\])?(.+)','$2')"
+        select="replace(format-date(xs:date($date) + xs:dayTimeDuration($daysDuration), '[Y0001]-[M01]-[D01]','en',(),()),'(\[.*\])?(.+)','$2')"
       />
     </date>
     <xsl:message>/days-after</xsl:message>
@@ -215,7 +217,7 @@
     </xsl:variable>
     <date>
       <xsl:value-of
-        select="replace(format-date(xs:date($date) - xs:dayTimeDuration($daysDuration), '[Y0001]-[M01]-[D01]'),'(\[.*\])?(.+)','$2')"
+        select="replace(format-date(xs:date($date) - xs:dayTimeDuration($daysDuration), '[Y0001]-[M01]-[D01]','en',(),()),'(\[.*\])?(.+)','$2')"
       />
     </date>
     <xsl:message>/weeks-before</xsl:message>
@@ -235,7 +237,7 @@
     </xsl:variable>
     <date>
       <xsl:value-of
-        select="replace(format-date(xs:date($date) + xs:dayTimeDuration($daysDuration), '[Y0001]-[M01]-[D01]'),'(\[.*\])?(.+)','$2')"
+        select="replace(format-date(xs:date($date) + xs:dayTimeDuration($daysDuration), '[Y0001]-[M01]-[D01]','en',(),()),'(\[.*\])?(.+)','$2')"
       />
     </date>
     <xsl:message>/weeks-after</xsl:message>
@@ -545,7 +547,7 @@
       <day name="Saturday" index="7"/>
     </xsl:variable>
     <xsl:value-of
-      select="$weekdayindex/day[matches(replace(format-date(xs:date($date),'[F]'),'(\[.*\])?(.+)','$2'),@name)]/@index"/>
+      select="$weekdayindex/day[matches(replace(format-date(xs:date($date),'[F]','en',(),()),'(\[.*\])?(.+)','$2'),@name)]/@index"/>
     <xsl:message>/day-number</xsl:message>
   </xsl:template>
   <!-- 
@@ -565,7 +567,7 @@
     </xsl:variable>
     <xsl:variable name="day">
       <xsl:value-of
-        select="replace(format-date(xs:date(/date),'[F]'),'(\[.*\])?(.+)','$2')"/>
+        select="replace(format-date(xs:date(/date),'[F]','en',(),()),'(\[.*\])?(.+)','$2')"/>
     </xsl:variable>
     <xsl:if test="matches(@day,$day)">true</xsl:if>
     <xsl:message>/test-day</xsl:message>

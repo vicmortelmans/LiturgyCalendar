@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0">
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" version="3.0">
     <xsl:param name="years" select="'2012'"/><!-- comma separated list of years -->
-    <!-- you also have to provide 'ruleset' as a parameter !! -->
+    <!-- you also have to provide 'ruleset' as a parameter and it must be a plain filename in your active folder, no relative filename or URL !! -->
 
     <xsl:include href="liturgy.calendar.roman-rite.xslt"/>
 
     <xsl:template match="/" priority="1">
+        <xsl:message>Processor: <xsl:value-of select="system-property('xsl:product-name')"/> <xsl:value-of select="system-property('xsl:product-version')"/></xsl:message>
         <calendar>
             <!-- matches root of dummy input file -->
             <xsl:for-each select="tokenize($years,',')">
@@ -42,7 +43,7 @@
                     <xsl:value-of select="$date"/>
                 </date>
                 <form>
-                    <xsl:value-of select="$rsp/form"/>
+                    <xsl:value-of select="$rsp//form"/>
                 </form>
                 <cycle>
                     <xsl:copy-of select="string($result//coordinates[1]/@cycle)"/>

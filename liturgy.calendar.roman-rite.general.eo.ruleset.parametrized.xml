@@ -1389,16 +1389,6 @@
       <parametergroup><nr_s>Twenty-first</nr_s><nr_i>20</nr_i><nr_c>21</nr_c></parametergroup>
       <parametergroup><nr_s>Twenty-second</nr_s><nr_i>21</nr_i><nr_c>22</nr_c></parametergroup>
       <parametergroup><nr_s>Twenth-third</nr_s><nr_i>22</nr_i><nr_c>23</nr_c></parametergroup>
-      <parametergroup><nr_s>Twenty-fourth</nr_s><nr_i>23</nr_i><nr_c>24</nr_c></parametergroup>
-      <parametergroup><nr_s>Twenty-fifth</nr_s><nr_i>24</nr_i><nr_c>25</nr_c></parametergroup>
-      <parametergroup><nr_s>Twenty-sixth</nr_s><nr_i>25</nr_i><nr_c>26</nr_c></parametergroup>
-      <parametergroup><nr_s>Twenty-seventh</nr_s><nr_i>26</nr_i><nr_c>27</nr_c></parametergroup>
-      <parametergroup><nr_s>Twenty-eighth</nr_s><nr_i>27</nr_i><nr_c>28</nr_c></parametergroup>
-      <parametergroup><nr_s>Twenty-ninth</nr_s><nr_i>28</nr_i><nr_c>29</nr_c></parametergroup>
-      <parametergroup><nr_s>Thirtieth</nr_s><nr_i>29</nr_i><nr_c>30</nr_c></parametergroup>
-      <parametergroup><nr_s>Thirty-first</nr_s><nr_i>30</nr_i><nr_c>31</nr_c></parametergroup>
-      <parametergroup><nr_s>Thirty-second</nr_s><nr_i>31</nr_i><nr_c>32</nr_c></parametergroup>
-      <parametergroup><nr_s>Thirty-third</nr_s><nr_i>32</nr_i><nr_c>33</nr_c></parametergroup>
     </parameters>
     <template>
      <name>$nr_s Sunday after Pentecost</name>
@@ -1462,16 +1452,6 @@
       <parametergroup><nr_s>Twenty-first</nr_s><nr_i>20</nr_i><nr_c>21</nr_c></parametergroup>
       <parametergroup><nr_s>Twenty-second</nr_s><nr_i>21</nr_i><nr_c>22</nr_c></parametergroup>
       <parametergroup><nr_s>Twenty-third</nr_s><nr_i>22</nr_i><nr_c>23</nr_c></parametergroup>
-      <parametergroup><nr_s>Twenty-fourth</nr_s><nr_i>23</nr_i><nr_c>24</nr_c></parametergroup>
-      <parametergroup><nr_s>Twenty-fifth</nr_s><nr_i>24</nr_i><nr_c>25</nr_c></parametergroup>
-      <parametergroup><nr_s>Twenty-sixth</nr_s><nr_i>25</nr_i><nr_c>26</nr_c></parametergroup>
-      <parametergroup><nr_s>Twenty-seventh</nr_s><nr_i>26</nr_i><nr_c>27</nr_c></parametergroup>
-      <parametergroup><nr_s>Twenty-eighth</nr_s><nr_i>27</nr_i><nr_c>28</nr_c></parametergroup>
-      <parametergroup><nr_s>Twenty-ninth</nr_s><nr_i>28</nr_i><nr_c>29</nr_c></parametergroup>
-      <parametergroup><nr_s>Thirtieth</nr_s><nr_i>29</nr_i><nr_c>30</nr_c></parametergroup>
-      <parametergroup><nr_s>Thirty-first</nr_s><nr_i>30</nr_i><nr_c>31</nr_c></parametergroup>
-      <parametergroup><nr_s>Thirty-second</nr_s><nr_i>31</nr_i><nr_c>32</nr_c></parametergroup>
-      <parametergroup><nr_s>Thirty-third</nr_s><nr_i>32</nr_i><nr_c>33</nr_c></parametergroup>
     </parameters>
     <template>
      <name>$day_s in the $nr_s week after Pentecost</name>
