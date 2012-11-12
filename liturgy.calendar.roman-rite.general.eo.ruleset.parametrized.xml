@@ -1560,7 +1560,9 @@
     <if>
       <test>
         <equals>
-          <this-date/>
+          <weekday-before-or-self day="Sunday">
+            <this-date/>
+          </weekday-before-or-self>
           <weeks-before nr="1">
             <relative-to-next-years name="First Sunday of Advent"/>
           </weeks-before>
@@ -1568,6 +1570,9 @@
       </test>
       <then>
         <text>24S</text>
+        <day-number>
+          <this-date/>
+        </day-number>
       </then>
     </if>
   </coordinaterules>
@@ -1577,7 +1582,7 @@
      <name>Twenty-fourth and Last Sunday after Pentecost</name>
       <season>Season per annum</season>
       <set>Last Sunday</set>
-      <coordinates>24S</coordinates>
+      <coordinates>24S1</coordinates>
       <rank nr="9">Sunday II class</rank>
       <daterules>
         <weeks-before nr="1">
