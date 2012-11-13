@@ -1556,7 +1556,7 @@
                               -->
 
   <coordinaterules set="Last Sunday"
-    start-date="11-20" stop-date="11-26" overlap-priority="9">
+    start-date="11-20" stop-date="12-02" overlap-priority="9">
     <if>
       <test>
         <equals>
