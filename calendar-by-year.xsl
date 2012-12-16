@@ -48,6 +48,9 @@
                 <cycle>
                     <xsl:copy-of select="string($result//coordinates[1]/@cycle)"/>
                 </cycle>
+                <rank>
+                    <xsl:value-of select="string($result//coordinates[1]/@rank)"/>
+                </rank>
             </day>
             <xsl:call-template name="day">
                 <xsl:with-param name="date" select="$date + xs:dayTimeDuration('P1D')"/>
