@@ -37,7 +37,7 @@
             </xsl:variable>
             <day>
                 <coordinates>
-                    <xsl:value-of select="normalize-space($result)"/>
+                    <xsl:value-of select="string-join($result,' ')"/>
                 </coordinates>
                 <date>
                     <xsl:value-of select="$date"/>

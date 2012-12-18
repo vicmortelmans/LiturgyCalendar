@@ -7,7 +7,7 @@
   <cacheservice>http://prentenmissaal.my28msec.com/cache/cache?doc=calendar&amp;expiration=0&amp;url=$url</cacheservice>
   <restservice>http://xslt.childrensmissal.appspot.com/calendar?output=xml&amp;ruleset=$ruleset&amp;mode=$mode&amp;cache=$cache&amp;date=$date&amp;set=$set&amp;score=$score&amp;minrankprecedence=$minrankprecedence&amp;coordinates=$coordinates&amp;year=$year</restservice>
   <cachefolder>file:///C:/Users/vic/Documents/LiturgyCalendar/cache</cachefolder>
-  <liturgicalday>
+  <!--liturgicalday>
     <parameters>
       <parametergroup><name>Optional Memorial of St. Damien de Veuster, priest</name><day>10</day><month>5</month></parametergroup>
     </parameters>
@@ -22,7 +22,7 @@
         <date day="$day" month="$month"/>
       </daterules>
     </template>
-  </liturgicalday>
+  </liturgicalday-->
   <coordinaterules set="Local dates" start-date="01-01" stop-date="12-31" overlap-priority="6">
     <query-set set="Local dates"/>
   </coordinaterules>   
