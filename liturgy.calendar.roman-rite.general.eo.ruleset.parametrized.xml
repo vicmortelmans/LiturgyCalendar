@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<liturgicaldays rsversion="1">
-
+<liturgicaldays>
+  <!-- after updating this file, increment the @version attribute in the 
+       custom ruleset files that include these <liturgicaldays>, if you
+       want to refresh the cache -->
+  
   <!-- 
       ADVENT 
               -->

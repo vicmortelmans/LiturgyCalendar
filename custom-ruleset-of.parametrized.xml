@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<liturgicaldays>
+<liturgicaldays rsversion="1">
   <locale>en-us</locale>
   <form>of</form>
   <includeliturgicaldays>https://raw.github.com/vicmortelmans/LiturgyCalendar/master/liturgy.calendar.roman-rite.general.of.ruleset.parametrized.xml</includeliturgicaldays>
