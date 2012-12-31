@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="calendar" name="LiturgyCalendar">
+ 
+ <!-- Note:
+      - Saxon PE of EE license is required. Saxon HE won't work!! 
+        This is because <xsl:try> is used for the file caching mechanism. 
+      - File caching is using the 'cache' folder, which may require manual cleaning !! 
+   -->
+
+ <property name="saxon-pe.location.ant" value="C:\Program Files\Saxon\saxon9pe.jar"/>
+ 
+ <!--property name="years" value="2013,2014,2015,2016"/-->
+ <property name="years" value="2013"/>
+ 
+ <property name="langs" value="en,nl,fr"/>
+ 
+ <target name="calendar" depends="calendar.of,calendar.eo"></target>
+ 
+ <target name="i18n-calendar" depends="i18n-calendar.of,i18n-calendar.eo"></target>
+ 
+ <target name="calendar.clean" depends="calendar.of.clean,calendar.eo.clean"></target>
+ 
+ <target name="calendar.of">
+  <xslt style="calendar-by-year.xsl" in="custom-ruleset-of.parametrized.xml" out="output/calendar-of.xml">
+   <!-- the input file isn't actually used, but the same file must be provided as 'ruleset' parameter
+        for ANT to detect changes, it's also used as input file, but a dummy.xml would work as well -->
+   <param name="years" expression="${years}"/>
+   <param name="ruleset" expression="custom-ruleset-of.parametrized.xml"/>
+   <classpath location="${saxon-pe.location.ant}" />
+  </xslt>
+ </target>
+ 
+ <target name="i18n-calendar.of" depends="calendar.of">
+  <xslt style="i18n-calendar.xsl" in="output/calendar-of.xml" out="$output/i18n-calendar-of.xml">
+   <param name="langslist" expression="${langs}"/>
+   <classpath location="${saxon-pe.location.ant}" />
+  </xslt>
+ </target>
+ 
+ <target name="calendar.eo">
+  <xslt style="calendar-by-year.xsl" in="custom-ruleset-eo.parametrized.xml" out="output/calendar-eo.xml">
+   <!-- the input file isn't actually used, but the same file must be provided as 'ruleset' parameter
+        for ANT to detect changes, it's also used as input file, but a dummy.xml would work as well -->
+   <param name="years" expression="${years}"/>
+   <param name="ruleset" expression="custom-ruleset-eo.parametrized.xml"/>
+   <classpath location="${saxon-pe.location.ant}" />
+  </xslt>
+ </target>
+ 
+ <target name="i18n-calendar.eo" depends="calendar.eo">
+  <xslt style="i18n-calendar.xsl" in="output/calendar-eo.xml" out="$output/i18n-calendar-eo.xml">
+   <param name="langslist" expression="${langs}"/>
+   <classpath location="${saxon-pe.location.ant}" />
+  </xslt>
+ </target>
+ 
+ 
+ <target name="calendar.of.clean">
+  <delete file="output/calendar-of.xml"/>
+  <delete file="output/i18n-calendar-of.xml"/>
+  <delete file="cache/custom-ruleset-of.parametrized.xml-file.xml"/>
+  <echo message="You may need to remove files from cache"/>
+ </target>
+ 
+ <target name="calendar.eo.clean">
+  <delete file="output/calendar-eo.xml"/>
+  <delete file="output/i18n-calendar-eo.xml"/>
+  <delete file="cache/custom-ruleset-eo.parametrized.xml-file.xml"/>
+  <echo message="You may need to remove files from cache"/>
+ </target>
+ 
+</project>

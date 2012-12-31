@@ -5,7 +5,7 @@
   <includeliturgicaldays>https://raw.github.com/vicmortelmans/LiturgyCalendar/master/liturgy.calendar.roman-rite.general.eo.ruleset.parametrized.xml</includeliturgicaldays>
   <options>epiphany-alt,ascension-std,corpuschristi-std</options>
   <cacheservice>http://prentenmissaal.my28msec.com/cache/cache?doc=calendar&amp;expiration=0&amp;url=$url</cacheservice>
-  <restservice>http://xslt.childrensmissal.appspot.com/calendar?output=xml&amp;ruleset=$ruleset&amp;mode=$mode&amp;cache=$cache&amp;date=$date&amp;set=$set&amp;score=$score&amp;minrankprecedence=$minrankprecedence&amp;coordinates=$coordinates&amp;year=$year</restservice>
+  <restservice>http://xslt.childrensmissal.appspot.com/calendar?output=xml&amp;ruleset=$ruleset&amp;rsversion=$rsversion&amp;mode=$mode&amp;cache=$cache&amp;date=$date&amp;set=$set&amp;score=$score&amp;minrankprecedence=$minrankprecedence&amp;coordinates=$coordinates&amp;year=$year</restservice>
   <cachefolder>file:///C:/Users/vic/Documents/LiturgyCalendar/cache</cachefolder>
   <!--liturgicalday>
     <parameters>

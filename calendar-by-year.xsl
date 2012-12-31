@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" version="3.0">
+    
     <xsl:param name="years" select="'2012'"/><!-- comma separated list of years -->
     <!-- you also have to provide 'ruleset' as a parameter and it must be a plain filename in your active folder, no relative filename or URL !! -->
 
@@ -37,7 +38,7 @@
             </xsl:variable>
             <day>
                 <coordinates>
-                    <xsl:value-of select="string-join($result,' ')"/>
+                    <xsl:value-of select="normalize-space(string-join($result,' '))"/>
                 </coordinates>
                 <date>
                     <xsl:value-of select="$date"/>

@@ -82,9 +82,9 @@
     <xsl:param name="mode" tunnel="yes"/>
     <xsl:variable name="pcollection">
       <xsl:if test="$mode = 'd2c'"
-        >$cachefolder/?select=$ruleset-$cache-$mode-$date-$set-$score-$minrankprecedence.xml</xsl:if>
+        >$cachefolder/?select=$ruleset-$rsversion-$cache-$mode-$date-$set-$score-$minrankprecedence.xml</xsl:if>
       <xsl:if test="$mode = 'c2d'"
-        >$cachefolder/?select=$ruleset-$cache-$mode-$year-$coordinates.xml</xsl:if>
+        >$cachefolder/?select=$ruleset-$rsversion-$cache-$mode-$year-$coordinates.xml</xsl:if>
       <xsl:if test="$mode = 'ruleset'">$cachefolder/?select=$ruleset-$cache.xml</xsl:if>
     </xsl:variable>
     <xsl:call-template name="replace">
@@ -104,9 +104,9 @@
     <xsl:param name="mode" tunnel="yes"/>
     <xsl:variable name="pfile">
       <xsl:if test="$mode = 'd2c'"
-        >$cachefolder/$ruleset-$cache-$mode-$date-$set-$score-$minrankprecedence.xml</xsl:if>
+        >$cachefolder/$ruleset-$rsversion-$cache-$mode-$date-$set-$score-$minrankprecedence.xml</xsl:if>
       <xsl:if test="$mode = 'c2d'"
-        >$cachefolder/$ruleset-$cache-$mode-$year-$coordinates.xml</xsl:if>
+        >$cachefolder/$ruleset-$rsversion-$cache-$mode-$year-$coordinates.xml</xsl:if>
       <xsl:if test="$mode = 'ruleset'">$cachefolder/$ruleset-$cache.xml</xsl:if>
     </xsl:variable>
     <xsl:call-template name="replace">
@@ -133,6 +133,9 @@
     <ruleset>
       <xsl:value-of select="$ruleset"/>
     </ruleset>
+    <rsversion>
+      <xsl:value-of select="$rsversion"/>
+    </rsversion>
     <mode>
       <xsl:value-of select="$mode"/>
     </mode>

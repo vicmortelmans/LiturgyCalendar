@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<liturgicaldays>
+<liturgicaldays rsversion="1">
 
   <!-- 
       ADVENT 
@@ -1700,6 +1700,40 @@
     </template>
   </liturgicalday>
 
+  <!--
+      ALL SOULS 
+                -->
+  
+  <coordinaterules set="All Souls"
+    start-date="11-02" stop-date="11-03" overlap-priority="7">
+    <query-set set="All Souls"/>
+  </coordinaterules>
+  
+  <liturgicalday>
+    <template>
+      <name>All Souls</name>
+      <season>Season per annum</season>
+      <set>All Souls</set>
+      <coordinates>SOS</coordinates>
+      <rank nr="13">All Souls Day</rank>
+      <daterules>
+        <if>
+          <test>
+            <test-day day="Sunday">
+              <date day="02" month="11"/>
+            </test-day>
+          </test>
+          <then>
+            <date day="03" month="11"/>
+          </then>
+          <else>
+            <date day="02" month="11"/>
+          </else>
+        </if>
+      </daterules>
+    </template>
+  </liturgicalday>
+  
   <!--
       FIXED DATES 
                   -->

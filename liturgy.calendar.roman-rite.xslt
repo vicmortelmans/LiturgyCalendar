@@ -20,6 +20,7 @@
   <xsl:param name="coordinates" select="'A011'"/>
   <xsl:param name="year" select="'2011'"/>
 
+  <!-- process ruleset file -->
   <xsl:variable name="rsp">
     <!-- contains the parametrized ruleset file -->
     <xsl:choose>
@@ -30,6 +31,10 @@
         <xsl:copy-of select="document($ruleset)"/>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="rsversion">
+    <xsl:value-of select="string($rsp/liturgicaldays/@rsversion)"/>
   </xsl:variable>
 
   <xsl:variable name="rs">
