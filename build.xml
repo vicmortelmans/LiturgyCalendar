@@ -9,10 +9,13 @@
 
  <property name="saxon-pe.location.ant" value="C:\Program Files\Saxon\saxon9pe.jar"/>
  
+ <dirname property="LiturgyCalendar.basedir" file="${ant.file.LiturgyCalendar}"/>
+ 
  <!--property name="years" value="2013,2014,2015,2016"/-->
  <property name="years" value="2013"/>
  
- <property name="langs" value="en,nl,fr"/>
+ <!--property name="langs" value="en,nl,fr"/-->
+ <property name="langs" value="en,nl"/>
  
  <target name="calendar" depends="calendar.of,calendar.eo"></target>
  
@@ -21,7 +24,9 @@
  <target name="calendar.clean" depends="calendar.of.clean,calendar.eo.clean"></target>
  
  <target name="calendar.of">
-  <xslt style="calendar-by-year.xsl" in="custom-ruleset-of.parametrized.xml" out="output/calendar-of.xml">
+  <xslt style="${LiturgyCalendar.basedir}/calendar-by-year.xsl" 
+   in="${LiturgyCalendar.basedir}/custom-ruleset-of.parametrized.xml" 
+   out="${LiturgyCalendar.basedir}/output/calendar-of-${years}.xml">
    <!-- the input file isn't actually used, but the same file must be provided as 'ruleset' parameter
         for ANT to detect changes, it's also used as input file, but a dummy.xml would work as well -->
    <param name="years" expression="${years}"/>
@@ -31,14 +36,18 @@
  </target>
  
  <target name="i18n-calendar.of" depends="calendar.of">
-  <xslt style="i18n-calendar.xsl" in="output/calendar-of.xml" out="$output/i18n-calendar-of.xml">
+  <xslt style="${LiturgyCalendar.basedir}/i18n-calendar.xsl" 
+   in="${LiturgyCalendar.basedir}/output/calendar-of-${years}.xml" 
+   out="${LiturgyCalendar.basedir}/output/i18n-calendar-of-${years}-${langs}.xml">
    <param name="langslist" expression="${langs}"/>
    <classpath location="${saxon-pe.location.ant}" />
   </xslt>
  </target>
  
  <target name="calendar.eo">
-  <xslt style="calendar-by-year.xsl" in="custom-ruleset-eo.parametrized.xml" out="output/calendar-eo.xml">
+  <xslt style="calendar-by-year.xsl" 
+   in="${LiturgyCalendar.basedir}/custom-ruleset-eo.parametrized.xml" 
+   out="${LiturgyCalendar.basedir}/output/calendar-eo-${years}.xml">
    <!-- the input file isn't actually used, but the same file must be provided as 'ruleset' parameter
         for ANT to detect changes, it's also used as input file, but a dummy.xml would work as well -->
    <param name="years" expression="${years}"/>
@@ -48,7 +57,9 @@
  </target>
  
  <target name="i18n-calendar.eo" depends="calendar.eo">
-  <xslt style="i18n-calendar.xsl" in="output/calendar-eo.xml" out="$output/i18n-calendar-eo.xml">
+  <xslt style="${LiturgyCalendar.basedir}/i18n-calendar.xsl" 
+   in="${LiturgyCalendar.basedir}/output/calendar-eo-${years}.xml" 
+   out="${LiturgyCalendar.basedir}/output/i18n-calendar-eo-${years}-${langs}.xml">
    <param name="langslist" expression="${langs}"/>
    <classpath location="${saxon-pe.location.ant}" />
   </xslt>
@@ -56,16 +67,16 @@
  
  
  <target name="calendar.of.clean">
-  <delete file="output/calendar-of.xml"/>
-  <delete file="output/i18n-calendar-of.xml"/>
-  <delete file="cache/custom-ruleset-of.parametrized.xml-file.xml"/>
+  <delete file="${LiturgyCalendar.basedir}/output/calendar-of-${years}.xml"/>
+  <delete file="${LiturgyCalendar.basedir}/output/i18n-calendar-of-${years}-${langs}.xml"/>
+  <delete file="${LiturgyCalendar.basedir}/cache/custom-ruleset-of.parametrized.xml-file.xml"/>
   <echo message="You may need to remove files from cache"/>
  </target>
  
  <target name="calendar.eo.clean">
-  <delete file="output/calendar-eo.xml"/>
-  <delete file="output/i18n-calendar-eo.xml"/>
-  <delete file="cache/custom-ruleset-eo.parametrized.xml-file.xml"/>
+  <delete file="${LiturgyCalendar.basedir}/output/calendar-eo-${years}.xml"/>
+  <delete file="${LiturgyCalendar.basedir}/output/i18n-calendar-eo-${years}-${langs}.xml"/>
+  <delete file="${LiturgyCalendar.basedir}/cache/custom-ruleset-eo.parametrized.xml-file.xml"/>
   <echo message="You may need to remove files from cache"/>
  </target>
  
