@@ -1690,6 +1690,7 @@
       <set>Matthias</set>
       <coordinates>MAT</coordinates>
       <rank nr="7">Feasts of the Lord II class</rank>
+      <color>red</color>
       <daterules>
         <if>
           <test>
@@ -1727,6 +1728,7 @@
       <set>Greater Litanies</set>
       <coordinates>GRL</coordinates>
       <rank nr="2">Greater Litanies</rank>
+      <color>violet</color>
       <daterules>
         <if>
           <test>
@@ -1770,6 +1772,7 @@
       <set>All Souls</set>
       <coordinates>SOS</coordinates>
       <rank nr="13">All Souls Day</rank>
+      <color>black</color>
       <daterules>
         <if>
           <test>
@@ -1805,6 +1808,7 @@
       <set>Fixed dates</set>
       <coordinates>Z1224</coordinates>
       <rank nr="2">Vigil of Christmas</rank>
+      <color>violet</color>
       <daterules>
         <date day="24" month="12" year-1="yes"/>
       </daterules>
@@ -1821,6 +1825,7 @@
       <coordinates>Z1225</coordinates>
       <rank nr="6">Feasts of the Lord I class</rank>
       <vigil>true</vigil>
+      <color>white</color>
       <daterules>
         <date day="25" month="12" year-1="yes"/>
       </daterules>
@@ -1836,6 +1841,7 @@
       <set>Fixed dates</set>
       <coordinates>Z1226</coordinates>
       <rank nr="12">Octave of Christmas</rank>
+      <color>red</color>
       <daterules>
         <date day="26" month="12" year-1="yes"/>
       </daterules>
@@ -1851,6 +1857,7 @@
       <set>Fixed dates</set>
       <coordinates>Z1227</coordinates>
       <rank nr="12">Octave of Christmas</rank>
+      <color>white</color>
       <daterules>
         <date day="27" month="12" year-1="yes"/>
       </daterules>
@@ -1866,6 +1873,7 @@
       <set>Fixed dates</set>
       <coordinates>Z1228</coordinates>
       <rank nr="12">Octave of Christmas</rank>
+      <color>red</color>
       <daterules>
         <date day="28" month="12" year-1="yes"/>
       </daterules>
@@ -1881,6 +1889,7 @@
       <set>Fixed dates</set>
       <coordinates>Z0101</coordinates>
       <rank nr="12">Octave of Christmas</rank>
+      <color>white</color>
       <daterules>
         <date day="01" month="01"/>
       </daterules>
@@ -1907,6 +1916,7 @@
       <set>Fixed dates</set>
       <coordinates>Z01$day_c</coordinates>
       <rank nr="18">Feria IV class</rank>
+      <color>white</color>
       <daterules>
         <date day="$day_c" month="01"/>
       </daterules>
@@ -1922,6 +1932,7 @@
       <set>Fixed dates</set>
       <coordinates>Z0106</coordinates>
       <rank nr="6">Feasts of the Lord I class</rank>
+      <color>white</color>
       <daterules>
         <date day="06" month="01"/>
       </daterules>
@@ -1937,6 +1948,7 @@
       <set>Fixed dates</set>
       <coordinates>Z0113</coordinates>
       <rank nr="7">Feasts of the Lord II class</rank>
+      <color>white</color>
       <daterules>
         <date day="13" month="01"/>
       </daterules>
@@ -1949,12 +1961,9 @@
       <parametergroup><name>Annunciation of the Blessed Virgin Mary</name><day>25</day><month>03</month><coincidingset>Lent,Easter,Ascension,Special days after Easter,Greater Litanies</coincidingset><year-1/></parametergroup>
       <parametergroup><name>St. Joseph the Workman, Spouse of the Blessed Virgin Mary</name><day>01</day><month>05</month><coincidingset>Lent,Easter,Ascension,Special days after Easter,Greater Litanies</coincidingset><year-1/></parametergroup>
       <parametergroup><name>Nativity of St. John the Baptist</name><day>24</day><month>06</month><coincidingset>Lent,Easter,Ascension,Special days after Easter,Greater Litanies</coincidingset><year-1/></parametergroup>
-      <parametergroup><name>Ss. Peter and Paul Apostles</name><day>29</day><month>06</month><coincidingset>Lent,Easter,Ascension,Special days after Easter,Greater Litanies</coincidingset><year-1/></parametergroup>
-      <parametergroup><name>The Most Precious Blood of our Lord Jesus Christ</name><day>01</day><month>07</month><coincidingset/><year-1/></parametergroup>
       <parametergroup><name>Assumption of the Blessed Virgin Mary</name><day>15</day><month>08</month><coincidingset/><year-1/></parametergroup>
       <parametergroup><name>Dedication of St. Michael Archangel</name><day>29</day><month>09</month><coincidingset/><year-1/></parametergroup>
       <parametergroup><name>All Saints</name><day>01</day><month>11</month><coincidingset/><year-1/></parametergroup>
-      <parametergroup><name>Commemoration of all the Faithful Departed</name><day>02</day><month>11</month><coincidingset/><year-1/></parametergroup>
       <parametergroup><name>Immaculate Conception of the Blessed Virgin Mary</name><day>08</day><month>12</month><coincidingset/><year-1>yes</year-1></parametergroup>
     </parameters>
     <template>
@@ -1964,6 +1973,28 @@
       <coordinates>Z$month$day</coordinates>
       <rank nr="6">Feasts of the Lord I class</rank>
       <precedence>1</precedence><!-- to give precedence to moving Feasts of the Lord I class-->
+      <color>white</color>
+      <daterules>
+        <transfer rank="6" sets="$coincidingset">
+          <date day="$day" month="$month" year-1="$year-1"/>
+        </transfer>
+      </daterules>
+    </template>
+  </liturgicalday>
+  
+  <liturgicalday>
+    <parameters>
+      <parametergroup><name>Ss. Peter and Paul Apostles</name><day>29</day><month>06</month><coincidingset>Lent,Easter,Ascension,Special days after Easter,Greater Litanies</coincidingset><year-1/></parametergroup>
+      <parametergroup><name>The Most Precious Blood of our Lord Jesus Christ</name><day>01</day><month>07</month><coincidingset/><year-1/></parametergroup>
+    </parameters>
+    <template>
+      <name>$name</name>
+      <season>Season per annum</season>
+      <set>Fixed dates</set>
+      <coordinates>Z$month$day</coordinates>
+      <rank nr="6">Feasts of the Lord I class</rank>
+      <precedence>1</precedence><!-- to give precedence to moving Feasts of the Lord I class-->
+      <color>red</color>
       <daterules>
         <transfer rank="6" sets="$coincidingset">
           <date day="$day" month="$month" year-1="$year-1"/>
@@ -1976,29 +2007,17 @@
     <parameters><!-- Feasts between 1/01 and 27/11 -->
       <parametergroup><name>Purification of the Blessed Virgin Mary</name><day>02</day><month>02</month><coincideswith/><year-1/></parametergroup>
       <parametergroup><name>Chair of St. Peter</name><day>22</day><month>02</month><coincideswith/><year-1/></parametergroup>
-      <parametergroup><name>St. Mark Evangelist</name><day>25</day><month>04</month><coincideswith>GRL</coincideswith><year-1/></parametergroup>
-      <parametergroup><name>Ss. Philip and James Apostles</name><day>11</day><month>05</month><coincideswith/><year-1/></parametergroup>
       <parametergroup><name>Blessed Virgin Mary, Queen</name><day>31</day><month>05</month><coincideswith/><year-1/></parametergroup>
       <parametergroup><name>Visitation of the Blessed Virgin Mary</name><day>02</day><month>07</month><coincideswith/><year-1/></parametergroup>
-      <parametergroup><name>St. James Apostle</name><day>25</day><month>07</month><coincideswith/><year-1/></parametergroup>
       <parametergroup><name>St. Anne Mother of the Blessed Virgin Mary</name><day>26</day><month>07</month><coincideswith/><year-1/></parametergroup>
       <parametergroup><name>Transfiguration of our Lord Jesus Christ</name><day>06</day><month>08</month><coincideswith/><year-1/></parametergroup>
-      <parametergroup><name>St. Laurence Martyr</name><day>10</day><month>08</month><coincideswith/><year-1/></parametergroup>
       <parametergroup><name>St. Joachim Father of the Blessed Virgin Mary</name><day>16</day><month>08</month><coincideswith/><year-1/></parametergroup>
       <parametergroup><name>Immaculate Heart of the Blessed Virgin Mary</name><day>22</day><month>08</month><coincideswith/><year-1/></parametergroup>
-      <parametergroup><name>St. Bartholomew Apostle</name><day>24</day><month>08</month><coincideswith/><year-1/></parametergroup>
       <parametergroup><name>Nativity of the Blessed Virgin Mary</name><day>08</day><month>09</month><coincideswith/><year-1/></parametergroup>
-      <parametergroup><name>Exaltation of the Holy Cross</name><day>14</day><month>09</month><coincideswith/><year-1/></parametergroup>
       <parametergroup><name>Seven Sorrows of the Blessed Virgin Mary</name><day>15</day><month>09</month><coincideswith/><year-1/></parametergroup>
-      <parametergroup><name>St. Matthew Apostle and Evangelist</name><day>21</day><month>09</month><coincideswith/><year-1/></parametergroup>
       <parametergroup><name>Blessed Virgin Mary of the Rosary</name><day>07</day><month>10</month><coincideswith/><year-1/></parametergroup>
       <parametergroup><name>The Maternity of the Blessed Virgin Mary</name><day>11</day><month>10</month><coincideswith/><year-1/></parametergroup>
-      <parametergroup><name>St. Luke Evangelist</name><day>18</day><month>10</month><coincideswith/><year-1/></parametergroup>
-      <parametergroup><name>Ss. Simon and Jude Apostles</name><day>28</day><month>10</month><coincideswith/><year-1/></parametergroup>
       <parametergroup><name>Dedication of the Archbasilica of the most Holy Saviour</name><day>09</day><month>11</month><year-1/><coincideswith/></parametergroup>
-      <parametergroup><name>St. Andrew Apostle</name><day>30</day><month>11</month><coincideswith/><year-1/></parametergroup>
-      <parametergroup><name>St. Andrew Apostle</name><day>30</day><month>11</month><coincideswith/><year-1>yes</year-1></parametergroup>
-      <parametergroup><name>St. Thomas Apostle</name><day>21</day><month>12</month><coincideswith/><year-1>yes</year-1></parametergroup>
     </parameters>
     <template>
      <name>$name</name>
@@ -2007,8 +2026,38 @@
       <coordinates>Z$month$day</coordinates>
       <rank nr="11">Particular Feasts II class</rank>
       <coincideswith>$coincideswith</coincideswith>
+      <color>white</color>
       <daterules>
           <date day="$day" month="$month" year-1="$year-1"/>
+      </daterules>
+    </template>
+  </liturgicalday>
+  
+  <liturgicalday>
+    <parameters><!-- Feasts between 1/01 and 27/11 -->
+      <parametergroup><name>St. Mark Evangelist</name><day>25</day><month>04</month><coincideswith>GRL</coincideswith><year-1/></parametergroup>
+      <parametergroup><name>Ss. Philip and James Apostles</name><day>11</day><month>05</month><coincideswith/><year-1/></parametergroup>
+      <parametergroup><name>St. James Apostle</name><day>25</day><month>07</month><coincideswith/><year-1/></parametergroup>
+      <parametergroup><name>St. Laurence Martyr</name><day>10</day><month>08</month><coincideswith/><year-1/></parametergroup>
+      <parametergroup><name>St. Bartholomew Apostle</name><day>24</day><month>08</month><coincideswith/><year-1/></parametergroup>
+      <parametergroup><name>Exaltation of the Holy Cross</name><day>14</day><month>09</month><coincideswith/><year-1/></parametergroup>
+      <parametergroup><name>St. Matthew Apostle and Evangelist</name><day>21</day><month>09</month><coincideswith/><year-1/></parametergroup>
+      <parametergroup><name>St. Luke Evangelist</name><day>18</day><month>10</month><coincideswith/><year-1/></parametergroup>
+      <parametergroup><name>Ss. Simon and Jude Apostles</name><day>28</day><month>10</month><coincideswith/><year-1/></parametergroup>
+      <parametergroup><name>St. Andrew Apostle</name><day>30</day><month>11</month><coincideswith/><year-1/></parametergroup>
+      <parametergroup><name>St. Andrew Apostle</name><day>30</day><month>11</month><coincideswith/><year-1>yes</year-1></parametergroup>
+      <parametergroup><name>St. Thomas Apostle</name><day>21</day><month>12</month><coincideswith/><year-1>yes</year-1></parametergroup>
+    </parameters>
+    <template>
+      <name>$name</name>
+      <season>Season per annum</season>
+      <set>Fixed dates</set>
+      <coordinates>Z$month$day</coordinates>
+      <rank nr="11">Particular Feasts II class</rank>
+      <coincideswith>$coincideswith</coincideswith>
+      <color>red</color>
+      <daterules>
+        <date day="$day" month="$month" year-1="$year-1"/>
       </daterules>
     </template>
   </liturgicalday>
@@ -2025,6 +2074,7 @@
       <set>Fixed dates</set>
       <coordinates>Z$month$day</coordinates>
       <rank nr="14">Vigils II class</rank>
+      <color>violet</color>
       <daterules>
         <date day="$day" month="$month"/>
       </daterules>
