@@ -45,7 +45,7 @@
  </target>
  
  <target name="calendar.eo">
-  <xslt style="calendar-by-year.xsl" 
+  <xslt style="${LiturgyCalendar.basedir}/calendar-by-year.xsl" 
    in="${LiturgyCalendar.basedir}/custom-ruleset-eo.parametrized.xml" 
    out="${LiturgyCalendar.basedir}/output/calendar-eo-${years}.xml">
    <!-- the input file isn't actually used, but the same file must be provided as 'ruleset' parameter

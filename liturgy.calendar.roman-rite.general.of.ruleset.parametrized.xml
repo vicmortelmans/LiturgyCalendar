@@ -46,6 +46,7 @@
       <precedence>2</precedence>
       <vigil>true</vigil>
       <coincideswith>Z1224</coincideswith>
+      <color>violet</color>
       <daterules>
         <weeks-before nr="$nr_i">
           <weekday-before day="Sunday">
@@ -79,6 +80,7 @@
       <rank nr="13">Weekday of Advent</rank>
       <precedence>10</precedence>
       <coincideswith>Z1224</coincideswith>
+      <color>violet</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-before nr="$nr_i">
@@ -116,6 +118,7 @@
       <coordinates>B$nr_c</coordinates>
       <rank nr="13">Weekday</rank>
       <precedence>9</precedence>
+      <color>white</color>
       <daterules>
         <days-after nr="$nr_i">
           <date day="25" month="12" year-1="yes"/>
@@ -145,6 +148,7 @@
       <rank nr="8">Sunday of Christmas</rank>
       <precedence>6</precedence>
       <vigil>true</vigil>
+      <color>white</color>
       <daterules>
           <weekday-after day="Sunday">
             <date day="1" month="1"/>
@@ -169,6 +173,7 @@
       <coordinates>C$day_c</coordinates>
       <rank nr="13">Weekday of Christmas</rank>
       <precedence>10</precedence>
+      <color>white</color>
       <daterules>
         <weekday-after day="$day_s">
           <date day="1" month="1"/>
@@ -216,6 +221,7 @@
       <coordinates>E$day_c</coordinates>
       <rank nr="13">Weekday of Christmas</rank>
       <precedence>10</precedence>
+      <color>white</color>
       <daterules>
         <weekday-after day="$day_s">
           <relative-to name="Epiphany of the Lord"/>
@@ -251,6 +257,7 @@
       <coordinates>HFA</coordinates>
       <rank nr="7">Feast of the Lord</rank>
       <precedence>5</precedence>
+      <color>white</color>
       <daterules>
         <if>
           <test>
@@ -298,6 +305,7 @@
       <coordinates>EPI</coordinates>
       <rank nr="5">Movable Solemnity</rank>
       <precedence>2</precedence>
+      <color>white</color>
       <daterules option="epiphany-alt">
         <weekday-after day="Sunday">
           <date day="2" month="1"/>
@@ -336,6 +344,7 @@
       <coordinates>BAP</coordinates>
       <rank nr="7">Feast of the Lord</rank>
       <precedence>5</precedence>
+      <color>white</color>
       <daterules>
         <if>
           <test>
@@ -393,6 +402,7 @@
       <coordinates>L004</coordinates>
       <rank nr="3">Ash Wednesday</rank>
       <precedence>2</precedence>
+      <color>violet</color>
       <daterules>
         <days-before nr="46">
           <easterdate/>
@@ -414,6 +424,7 @@
       <coordinates>L0$nr_c</coordinates>
       <rank nr="13">Weekday of Lent</rank>
       <precedence>9</precedence>
+      <color>violet</color>
       <daterules>
         <days-before nr="$nr_i">
           <easterdate/>
@@ -437,6 +448,7 @@
       <coordinates>L$nr_c1</coordinates>
       <rank nr="4">Sunday of Lent</rank>
       <precedence>2</precedence>
+      <color>violet</color>
       <daterules>
         <weeks-before nr="$nr_i">
           <easterdate/>
@@ -468,6 +480,7 @@
       <coordinates>L$nr_c$day_c</coordinates>
       <rank nr="13">Weekday of Lent</rank>
       <precedence>9</precedence>
+      <color>violet</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-before nr="$nr_i">
@@ -487,6 +500,7 @@
       <coordinates>L061</coordinates>
       <rank nr="4">Sunday of Lent</rank>
       <precedence>2</precedence>
+      <color>red</color>
       <daterules>
         <weeks-before nr="1">
           <easterdate/>
@@ -508,6 +522,7 @@
       <coordinates>L06$day_c</coordinates>
       <rank nr="2">Holy Week</rank>
       <precedence>2</precedence>
+      <color>violet</color>
       <daterules>
         <days-before nr="$nr_i">
           <easterdate/>
@@ -546,6 +561,7 @@
       <coordinates>P005</coordinates>
       <rank nr="2">Holy Week</rank>
       <precedence>2</precedence>
+      <color>white</color>
       <daterules>
         <days-before nr="3">
           <easterdate/>
@@ -564,6 +580,7 @@
       <precedence>1</precedence>
       <vigil>true</vigil> 
       <!-- the vigil mass of Good Friday is the evening Mass of the Lord's Supper-->
+      <color>red</color>
       <daterules>
         <days-before nr="2">
           <easterdate/>
@@ -580,6 +597,7 @@
       <coordinates>P007</coordinates>
       <rank nr="2">Holy Week</rank>
       <precedence>1</precedence>
+      <color>none</color>
       <daterules>
         <days-before nr="1">
           <easterdate/>
@@ -597,6 +615,7 @@
       <rank nr="1">Easter</rank>
       <precedence>1</precedence>
       <vigil>true</vigil>
+      <color>white</color>
       <daterules>
         <easterdate/>
       </daterules>
@@ -619,6 +638,7 @@
       <coordinates>P$nr_c1</coordinates>
       <rank nr="4">Sunday of Easter</rank>
       <precedence>2</precedence>
+      <color>white</color>
       <daterules>
         <weeks-after nr="$nr_i">
           <easterdate/>
@@ -643,6 +663,7 @@
       <coordinates>P01$day_c</coordinates>
       <rank nr="2">Octave of Easter</rank>
       <precedence>2</precedence>
+      <color>white</color>
       <daterules>
         <days-after nr="$nr_i">
           <easterdate/>
@@ -675,6 +696,7 @@
       <coordinates>P$nr_c$day_c</coordinates>
       <rank nr="13">Weekday</rank>
       <precedence>13</precedence>
+      <color>white</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-after nr="$nr_i">
@@ -702,6 +724,7 @@
       <coordinates>P065</coordinates>
       <rank nr="5">Movable Solemnity</rank>
       <precedence>2</precedence>
+      <color>white</color>
       <daterules option="ascension-std">
         <days-after nr="39">
           <easterdate/>
@@ -723,6 +746,7 @@
       <coordinates>P081</coordinates>
       <rank nr="5">Movable Solemnity</rank>
       <precedence>2</precedence>
+      <color>red</color>
       <daterules>
         <days-after nr="49">
           <easterdate/>
@@ -743,6 +767,7 @@
       <coordinates>$c</coordinates>
       <rank nr="5">Movable Solemnity</rank>
       <precedence>3</precedence>
+      <color>white</color>
       <daterules>
         <days-after nr="$days">
           <easterdate/>
@@ -759,6 +784,7 @@
       <coordinates>P095</coordinates>
       <rank nr="5">Movable Solemnity</rank>
       <precedence>3</precedence>
+      <color>white</color>
       <daterules option="corpuschristi-std">
         <days-after nr="60">
           <easterdate/>
@@ -816,6 +842,7 @@
       <rank nr="8">Sunday of Ordinary Time</rank>
       <precedence>6</precedence>
       <vigil>true</vigil>
+      <color>green</color>
       <daterules>
         <weeks-after nr="$nr_i">
           <weekday-after day="Sunday">
@@ -854,6 +881,7 @@
       <coordinates>X$nr_c$day_c</coordinates>
       <rank nr="13">Weekday of Ordinary Time</rank>
       <precedence>13</precedence>
+      <color>green</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-after nr="$nr_i">
@@ -927,6 +955,7 @@
       <rank nr="8">Sunday of Ordinary Time</rank>
       <precedence>6</precedence>
       <vigil>true</vigil>
+      <color>green</color>
       <daterules>
         <weeks-after nr="$nr_i">
           <weeks-before nr="35">
@@ -984,6 +1013,7 @@
       <coordinates>Y$nr_c$day_c</coordinates>
       <rank nr="13">Weekday of Ordinary Time</rank>
       <precedence>13</precedence>
+      <color>green</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-after nr="$nr_i">
@@ -1005,6 +1035,7 @@
       <rank nr="5">Movable Solemnity</rank>
       <precedence>3</precedence>
       <vigil>true</vigil>
+      <color>white</color>
       <daterules>
         <weeks-before nr="1">
           <relative-to-next-years name="First Sunday of Advent"/>
@@ -1031,6 +1062,7 @@
       <rank nr="6">Fixed Solemnity</rank>
       <vigil>true</vigil>
       <precedence>3</precedence>
+      <color>white</color>
       <daterules>
         <if>
           <test>
@@ -1058,6 +1090,7 @@
       <rank nr="6">Fixed Solemnity</rank>
       <vigil>true</vigil>
       <precedence>3</precedence>
+      <color>white</color>
       <daterules>
         <if>
           <test>
@@ -1093,6 +1126,7 @@
       <rank nr="6">Fixed Solemnity</rank>
       <vigil>true</vigil>
       <precedence>3</precedence>
+      <color>white</color>
       <daterules>
         <if>
           <test>
@@ -1130,6 +1164,7 @@
       <rank nr="6">Fixed Solemnity</rank>
       <vigil>true</vigil>
       <precedence>3</precedence>
+      <color>white</color>
       <daterules>
         <if>
           <test>
@@ -1164,6 +1199,7 @@
       <rank nr="6">Fixed Solemnity</rank>
       <vigil>true</vigil>
       <precedence>3</precedence>
+      <color>white</color>
       <daterules>
         <if>
           <test>
@@ -1197,6 +1233,7 @@
       <rank nr="6">Fixed Solemnity</rank>
       <vigil>true</vigil>
       <precedence>3</precedence>
+      <color>white</color>
       <daterules>
         <if>
           <test>
@@ -1235,6 +1272,7 @@
       <rank nr="6">Fixed Solemnity</rank>
       <vigil>true</vigil>
       <precedence>3</precedence>
+      <color>white</color>
       <daterules>
         <date day="8" month="12" year-1="yes"/>
       </daterules>
@@ -1251,6 +1289,7 @@
       <rank nr="1">Christmas</rank>
       <vigil>true</vigil>
       <precedence>2</precedence>
+      <color>white</color>
       <daterules>
         <date day="24" month="12" year-1="yes"/>
       </daterules>
@@ -1267,6 +1306,7 @@
       <rank nr="1">Christmas</rank>
       <vigil>true</vigil>
       <precedence>2</precedence>
+      <color>white</color>
       <daterules>
         <date day="25" month="12" year-1="yes"/>
       </daterules>
@@ -1281,6 +1321,7 @@
       <coordinates>Z1226</coordinates>
       <rank nr="9">Feast</rank>
       <precedence>7</precedence>
+      <color>red</color>
       <daterules>
         <date day="26" month="12" year-1="yes"/>
       </daterules>
@@ -1295,6 +1336,7 @@
       <coordinates>Z1227</coordinates>
       <rank nr="9">Feast</rank>
       <precedence>7</precedence>
+      <color>white</color>
       <daterules>
         <date day="27" month="12" year-1="yes"/>
       </daterules>
@@ -1309,6 +1351,7 @@
       <coordinates>Z1228</coordinates>
       <rank nr="9">Feast</rank>
       <precedence>7</precedence>
+      <color>red</color>
       <daterules>
         <date day="28" month="12" year-1="yes"/>
       </daterules>
@@ -1323,6 +1366,7 @@
       <coordinates>Z0101</coordinates>
       <rank nr="6">Fixed Solemnity</rank>
       <precedence>3</precedence>
+      <color>white</color>
       <daterules>
         <date day="1" month="1"/>
       </daterules>
@@ -1338,6 +1382,7 @@
       <rank nr="6">Fixed Solemnity</rank>
       <vigil>true</vigil>
       <precedence>3</precedence>
+      <color>white</color>
       <daterules>
         <if>
           <not/>
@@ -1390,6 +1435,7 @@
       <rank nr="6">Fixed Solemnity</rank>
       <vigil>true</vigil>
       <precedence>3</precedence>
+      <color>white</color>
       <daterules>
         <if>
           <not/>
@@ -1447,6 +1493,7 @@
       <coordinates>Z$month$day</coordinates>
       <rank nr="6">Fixed Solemnity</rank>
       <precedence>3</precedence>
+      <color>white</color>
       <daterules>
         <date day="$day" month="$month"/>
       </daterules>
@@ -1465,6 +1512,7 @@
       <rank nr="6"></rank>
       <precedence>3</precedence>
       <!--All Souls day has the precedence of a solemnity but is not categorized as are other Liturgical Days-->
+      <color>violet</color>
       <daterules>
         <date day="$day" month="$month"/>
       </daterules>
@@ -1476,23 +1524,11 @@
       <parametergroup><name>Feast of the Conversion of Paul</name><day>25</day><month>01</month><year-1/></parametergroup>
       <parametergroup><name>Feast of the Presentation of the Lord</name><day>02</day><month>02</month><year-1/></parametergroup>
       <parametergroup><name>Feast of the Chair of St. Peter, apostle</name><day>22</day><month>02</month><year-1/></parametergroup>
-      <parametergroup><name>Feast of St. Mark, evangelist</name><day>25</day><month>04</month><year-1/></parametergroup>
-      <parametergroup><name>Feast of SS. Philip and James, apostles</name><day>03</day><month>05</month><year-1/></parametergroup>
-      <parametergroup><name>Feast of St. Matthias, apostle</name><day>14</day><month>05</month><year-1/></parametergroup>
       <parametergroup><name>Feast of the Visitation</name><day>31</day><month>05</month><year-1/></parametergroup>
-      <parametergroup><name>Feast of St. Thomas, apostle</name><day>03</day><month>07</month><year-1/></parametergroup>
-      <parametergroup><name>Feast of St. James, apostle</name><day>25</day><month>07</month><year-1/></parametergroup>
       <parametergroup><name>Feast of the Transfiguration</name><day>06</day><month>08</month><year-1/></parametergroup>
-      <parametergroup><name>Feast of St. Lawrence, deacon and martyr</name><day>10</day><month>08</month><year-1/></parametergroup>
-      <parametergroup><name>Feast of St. Bartholomew, apostle</name><day>24</day><month>08</month><year-1/></parametergroup>
       <parametergroup><name>Feast of the Birth of Mary</name><day>08</day><month>09</month><year-1/></parametergroup>
-      <parametergroup><name>Feast of the Triumph of the Cross</name><day>14</day><month>09</month><year-1/></parametergroup>
-      <parametergroup><name>Feast of St. Matthew, apostle and evangelist</name><day>21</day><month>09</month><year-1/></parametergroup>
       <parametergroup><name>Feast of Michael, Gabriel and Raphael, Archangels</name><day>29</day><month>09</month><year-1/></parametergroup>
-      <parametergroup><name>Feast of St. Luke, evangelist</name><day>18</day><month>10</month><year-1/></parametergroup>
-      <parametergroup><name>Feast of SS. Simon and Jude, apostles</name><day>28</day><month>10</month><year-1/></parametergroup>
       <parametergroup><name>Feast of the Dedication of St. John Lateran</name><day>09</day><month>11</month><year-1/></parametergroup>
-      <parametergroup><name>Feast of St. Andrew, apostle</name><day>30</day><month>11</month><year-1/></parametergroup>
     </parameters>
     <template>
      <name>$name</name>
@@ -1501,12 +1537,42 @@
       <coordinates>Z$month$day</coordinates>
       <rank nr="9">Feast</rank>
       <precedence>7</precedence>
+      <color>white</color>
       <daterules>
         <date day="$day" month="$month"/>
       </daterules>
     </template>
   </liturgicalday>
 
+  <liturgicalday>
+    <parameters><!-- Feasts between 1/01 and 3/12 -->
+      <parametergroup><name>Feast of SS. Philip and James, apostles</name><day>03</day><month>05</month><year-1/></parametergroup>
+      <parametergroup><name>Feast of St. Mark, evangelist</name><day>25</day><month>04</month><year-1/></parametergroup>
+      <parametergroup><name>Feast of St. Matthias, apostle</name><day>14</day><month>05</month><year-1/></parametergroup>
+      <parametergroup><name>Feast of St. Thomas, apostle</name><day>03</day><month>07</month><year-1/></parametergroup>
+      <parametergroup><name>Feast of St. James, apostle</name><day>25</day><month>07</month><year-1/></parametergroup>
+      <parametergroup><name>Feast of St. Lawrence, deacon and martyr</name><day>10</day><month>08</month><year-1/></parametergroup>
+      <parametergroup><name>Feast of St. Bartholomew, apostle</name><day>24</day><month>08</month><year-1/></parametergroup>
+      <parametergroup><name>Feast of the Triumph of the Cross</name><day>14</day><month>09</month><year-1/></parametergroup>
+      <parametergroup><name>Feast of St. Matthew, apostle and evangelist</name><day>21</day><month>09</month><year-1/></parametergroup>
+      <parametergroup><name>Feast of St. Luke, evangelist</name><day>18</day><month>10</month><year-1/></parametergroup>
+      <parametergroup><name>Feast of SS. Simon and Jude, apostles</name><day>28</day><month>10</month><year-1/></parametergroup>
+      <parametergroup><name>Feast of St. Andrew, apostle</name><day>30</day><month>11</month><year-1/></parametergroup>
+    </parameters>
+    <template>
+      <name>$name</name>
+      <season>Ordinary Time</season>
+      <set>Fixed dates</set>
+      <coordinates>Z$month$day</coordinates>
+      <rank nr="9">Feast</rank>
+      <precedence>7</precedence>
+      <color>red</color>
+      <daterules>
+        <date day="$day" month="$month"/>
+      </daterules>
+    </template>
+  </liturgicalday>
+  
   <!-- DUPLICATE FIXED DATES -->  
   <coordinaterules set="Duplicate fixed dates" start-date="11-27" stop-date="12-03" overlap-priority="0">
     <query-coordinates set="Duplicate fixed dates">
@@ -1526,6 +1592,7 @@
       <coordinates>Z1130+</coordinates>
       <rank nr="9">Feast</rank>
       <precedence>7</precedence>
+      <color>white</color>
       <daterules>
         <date day="30" month="11" year-1="yes"/>
       </daterules>

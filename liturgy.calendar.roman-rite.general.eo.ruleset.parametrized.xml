@@ -44,6 +44,7 @@
       <coordinates>A$nr_c1</coordinates>
       <rank nr="3">Sunday I-IV Advent</rank>
       <coincideswith>Z1224</coincideswith>
+      <color>violet</color>
       <daterules>
         <weeks-before nr="$nr_i">
           <weekday-before day="Sunday">
@@ -71,6 +72,7 @@
       <coordinates>A$nr_c$day_c</coordinates>
       <rank nr="10">Ember day of Advent</rank>
       <!--coincideswith>D037</coincideswith-->
+      <color>violet</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-before nr="$nr_i">
@@ -119,6 +121,7 @@
       <set>Advent</set>
       <coordinates>A$nr_c$day_c</coordinates>
       <rank nr="18">Ferias IV class</rank>
+      <color>violet</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-before nr="$nr_i">
@@ -156,6 +159,7 @@
       <set>Advent</set>
       <coordinates>A$nr_c$day_c</coordinates>
       <rank nr="18">Ferias IV class</rank>
+      <color>violet</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-before nr="$nr_i">
@@ -228,6 +232,7 @@
       <coordinates>D$nr_c$day_c</coordinates>
       <precedence>1</precedence><!-- to give precedence to Ember Days-->
       <rank nr="10">Ferias Advent from 17-23 Dec.</rank>
+      <color>violet</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-before nr="$nr_i">
@@ -266,6 +271,7 @@
       <set>Octave of Christmas</set>
       <coordinates>B$nr_c</coordinates>
       <rank nr="12">Octave of Christmas</rank>
+      <color>white</color>
       <daterules>
         <days-after nr="$nr_i">
           <date day="25" month="12" year-1="yes"/>
@@ -295,6 +301,7 @@
       <set>Sundays of Christmas Season</set>
       <coordinates>C1</coordinates>
       <rank nr="9">Sunday II class</rank>
+      <color>white</color>
       <daterules>
           <weekday-after day="Sunday">
             <date day="25" month="12" year-1="yes"/>
@@ -330,6 +337,7 @@
       <set>Holy Name of Jesus</set>
       <coordinates>HNJ</coordinates>
       <rank nr="8">Feast of the Holy Name of Jesus</rank>
+      <color>white</color>
       <daterules>
         <if>
           <test>
@@ -390,6 +398,7 @@
       <set>After Epiphany</set>
       <coordinates>E011</coordinates>
       <rank nr="8">Feast of the Holy Family of Jesus</rank>
+      <color>white</color>
       <daterules>
         <weekday-after day="Sunday">
           <date month="01" day="06"/><!-- Epiphany -->
@@ -412,6 +421,7 @@
       <set>After Epiphany</set>
       <coordinates>E$nr_c1</coordinates>
       <rank nr="9">Sunday II class</rank>
+      <color>green</color>
       <daterules>
         <weeks-after nr="$nr_i">
           <weekday-after day="Sunday">
@@ -457,6 +467,7 @@
       <set>After Epiphany</set>
       <coordinates>E$nr_c$day_c</coordinates>
       <rank nr="18">Ferias IV class</rank>
+      <color>green</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-after nr="$nr_i">
@@ -504,6 +515,7 @@
       <set>After Epiphany before Advent</set>
       <coordinates>F$nr_c1</coordinates>
       <rank nr="9">Sunday II class</rank>
+      <color>green</color>
       <daterules>
         <weeks-after nr="$nr_i">
           <weeks-before nr="8">
@@ -547,6 +559,7 @@
       <set>After Epiphany before Advent</set>
       <coordinates>F$nr_c$day_c</coordinates>
       <rank nr="18">Ferias IV class</rank>
+      <color>green</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-after nr="$nr_i">
@@ -593,6 +606,7 @@
       <set>Septuagesima</set>
       <coordinates>G$nr_c1</coordinates>
       <rank nr="9">Sunday II class</rank>
+      <color>violet</color>
       <daterules>
         <weeks-before nr="$nr_i">
           <easterdate/>
@@ -633,6 +647,7 @@
       <set>Septuagesima</set>
       <coordinates>G$nr_c$day_c</coordinates>
       <rank nr="18">Ferias IV class</rank>
+      <color>violet</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-before nr="$nr_i">
@@ -673,6 +688,7 @@
       <set>Lent</set>
       <coordinates>L004</coordinates>
       <rank nr="5">Ash Wednesday</rank>
+      <color>violet</color>
       <daterules>
         <days-before nr="46">
           <easterdate/>
@@ -694,6 +710,7 @@
       <set>Lent</set>
       <coordinates>L0$nr_c</coordinates>
       <rank nr="15">Ferias of Lent</rank>
+      <color>violet</color>
       <daterules>
         <days-before nr="$nr_i">
           <easterdate/>
@@ -715,6 +732,7 @@
       <set>Lent</set>
       <coordinates>L01$day_c</coordinates>
       <rank nr="10">Ember day of Lent</rank>
+      <color>violet</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-before nr="6">
@@ -739,6 +757,7 @@
       <set>Lent</set>
       <coordinates>L$nr_c1</coordinates>
       <rank nr="3">Sunday I-IV Lent</rank>
+      <color>violet</color>
       <daterules>
         <weeks-before nr="$nr_i">
           <easterdate/>
@@ -781,6 +800,7 @@
       <set>Lent</set>
       <coordinates>L$nr_c$day_c</coordinates>
       <rank nr="18">Ferias IV class</rank>
+      <color>violet</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-before nr="$nr_i">
@@ -799,6 +819,7 @@
       <set>Lent</set>
       <coordinates>L051</coordinates>
       <rank nr="3">Sunday I-II Passiontide</rank>
+      <color>violet</color>
       <daterules>
         <weeks-before nr="2">
           <easterdate/>
@@ -835,6 +856,7 @@
       <set>Lent</set>
       <coordinates>L05$day_c</coordinates>
       <rank nr="18">Ferias IV class</rank>
+      <color>violet</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-before nr="2">
@@ -853,6 +875,7 @@
       <set>Lent</set>
       <coordinates>L061</coordinates>
       <rank nr="3">Sunday I-II Passiontide</rank>
+      <color>red</color>
       <daterules>
         <weeks-before nr="1">
           <easterdate/>
@@ -874,6 +897,7 @@
       <set>Lent</set>
       <coordinates>L06$day_c</coordinates>
       <rank nr="5">Ferias Holy Week</rank>
+      <color>violet</color>
       <daterules>
         <days-before nr="$nr_i">
           <easterdate/>
@@ -890,6 +914,7 @@
       <set>Lent</set>
       <coordinates>L065</coordinates>
       <rank nr="5">Ferias Holy Week</rank>
+      <color>white</color>
       <daterules>
         <days-before nr="3">
           <easterdate/>
@@ -907,6 +932,7 @@
       <coordinates>L066</coordinates>
       <rank nr="5">Ferias Holy Week</rank>
       <!-- the vigil mass of Good Friday is the evening Mass of the Lord's Supper-->
+      <color>violet</color>
       <daterules>
         <days-before nr="2">
           <easterdate/>
@@ -923,6 +949,7 @@
       <set>Lent</set>
       <coordinates>L067</coordinates>
       <rank nr="5">Ferias Holy Week</rank>
+      <color>none</color>
       <daterules>
         <days-before nr="1">
           <easterdate/>
@@ -961,6 +988,7 @@
       <set>Easter</set>
       <coordinates>P007</coordinates>
       <rank nr="4">Octave of Easter</rank>
+      <color>white</color>
       <daterules>
         <days-before nr="1">
           <easterdate/>
@@ -977,6 +1005,7 @@
       <set>Easter</set>
       <coordinates>P011</coordinates>
       <rank nr="3">Easter Sunday</rank>
+      <color>white</color>
       <daterules>
         <easterdate/>
       </daterules>
@@ -991,6 +1020,7 @@
       <set>Easter</set>
       <coordinates>P021</coordinates>
       <rank nr="3">Low Sunday</rank>
+      <color>white</color>
       <daterules>
         <weeks-after nr="1">
           <easterdate/>
@@ -1013,6 +1043,7 @@
       <set>Easter</set>
       <coordinates>P$nr_c1</coordinates>
       <rank nr="9">Sunday II class</rank>
+      <color>white</color>
       <daterules>
         <weeks-after nr="$nr_i">
           <easterdate/>
@@ -1037,6 +1068,7 @@
       <set>Easter</set>
       <coordinates>P01$day_c</coordinates>
       <rank nr="4">Octave of Easter</rank>
+      <color>white</color>
       <daterules>
         <days-after nr="$nr_i">
           <easterdate/>
@@ -1079,6 +1111,7 @@
       <set>Easter</set>
       <coordinates>P$nr_c$day_c</coordinates>
       <rank nr="18">Ferias IV class</rank>
+      <color>white</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-after nr="$nr_i">
@@ -1104,6 +1137,7 @@
       <coordinates>P06$day_c</coordinates>
       <rank nr="15">Ferias III class</rank>
       <coincideswith>Q064</coincideswith>
+      <color>white</color>
       <daterules>
         <days-after nr="$nr_i">
           <easterdate/>
@@ -1142,6 +1176,7 @@
       <set>Ascension</set>
       <coordinates>Q064</coordinates>
       <rank nr="14">Vigils II class</rank>
+      <color>white</color>
       <daterules>
         <days-after nr="38">
           <easterdate/>
@@ -1158,6 +1193,7 @@
       <set>Ascension</set>
       <coordinates>Q065</coordinates>
       <rank nr="6">Feasts of the Lord I class</rank>
+      <color>white</color>
       <daterules>
         <days-after nr="39">
           <easterdate/>
@@ -1178,6 +1214,7 @@
       <set>Ascension</set>
       <coordinates>Q06$day_c</coordinates>
       <rank nr="18">Ferias IV class</rank>
+      <color>white</color>
       <daterules>
         <days-after nr="$nr_i">
           <easterdate/>
@@ -1194,6 +1231,7 @@
       <set>Ascension</set>
       <coordinates>Q071</coordinates>
       <rank nr="9">Sunday II class</rank>
+      <color>white</color>
       <daterules>
         <days-after nr="42">
           <easterdate/>
@@ -1217,6 +1255,7 @@
       <set>Ascension</set>
       <coordinates>Q07$day_c</coordinates>
       <rank nr="18">Ferias IV class</rank>
+      <color>white</color>
       <daterules>
         <days-after nr="$nr_i">
           <easterdate/>
@@ -1233,6 +1272,7 @@
       <set>Ascension</set>
       <coordinates>Q077</coordinates>
       <rank nr="2">Vigil of Pentecost</rank>
+      <color>red</color>
       <daterules>
         <days-after nr="48">
           <easterdate/>
@@ -1249,6 +1289,7 @@
       <set>Ascension</set>
       <coordinates>Q081</coordinates>
       <rank nr="3">Pentecost</rank>
+      <color>red</color>
       <daterules>
         <days-after nr="49">
           <easterdate/>
@@ -1265,6 +1306,7 @@
       <set>Ascension</set>
       <coordinates>Q082</coordinates>
       <rank nr="4">Octave of Pentecost</rank>
+      <color>red</color>
       <daterules>
         <days-after nr="50">
           <easterdate/>
@@ -1286,6 +1328,7 @@
       <set>Ascension</set>
       <coordinates>Q08$day_c</coordinates>
       <rank nr="4">Octave of Pentecost</rank>
+      <color>red</color>
       <daterules>
         <days-after nr="$nr_i">
           <easterdate/>
@@ -1307,6 +1350,7 @@
       <set>Ascension</set>
       <coordinates>Q08$day_c</coordinates>
       <rank nr="4">Octave of Pentecost</rank>
+      <color>red</color>
       <daterules>
         <days-after nr="$nr_i">
           <easterdate/>
@@ -1336,6 +1380,7 @@
       <set>Special days after Easter</set>
       <coordinates>$c</coordinates>
       <rank nr="6">Feasts of the Lord I class</rank>
+      <color>white</color>
       <daterules>
         <transfer rank="6" sets="Fixed dates">
           <days-after nr="$days">
@@ -1401,6 +1446,7 @@
       <coordinates>Y$nr_c1</coordinates>
       <precedence>1</precedence><!-- to give precedence to Last Sunday-->
       <rank nr="9">Sunday II class</rank>
+      <color>green</color>
       <daterules>
         <weeks-after nr="$nr_i">
           <days-after nr="49">
@@ -1463,6 +1509,7 @@
       <set>Ordinary after Easter</set>
       <coordinates>Y$nr_c$day_c</coordinates>
       <rank nr="18">Ferias IV class</rank>
+      <color>green</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-after nr="$nr_i">
@@ -1505,6 +1552,7 @@
       <coordinates>S$day_c</coordinates>
       <rank nr="10">Ember day of September</rank>
       <!-- http://catholicism.about.com/b/2009/09/17/reader-question-confusion-about-ember-days.htm -->
+      <color>violet</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-after nr="2"><!-- third Sunday of September-->
@@ -1546,6 +1594,7 @@
       <set>Christ the King</set>
       <coordinates>CHK</coordinates>
       <rank nr="6">Feasts of the Lord I class</rank>
+      <color>white</color>
       <daterules>
         <weekday-before day="Sunday">
           <date day="01" month="11"/>
@@ -1587,6 +1636,7 @@
       <set>Last Sunday</set>
       <coordinates>24S1</coordinates>
       <rank nr="9">Sunday II class</rank>
+      <color>green</color>
       <daterules>
         <weeks-before nr="1">
           <relative-to-next-years name="First Sunday of Advent"/>
@@ -1613,6 +1663,7 @@
       <set>Last Sunday</set>
       <coordinates>24S$day_c</coordinates>
       <rank nr="18">Ferias IV class</rank>
+      <color>green</color>
       <daterules>
         <weekday-after day="$day_s">
           <weeks-before nr="1">
