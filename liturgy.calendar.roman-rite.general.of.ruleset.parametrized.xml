@@ -844,6 +844,10 @@
       <vigil>true</vigil>
       <color>green</color>
       <daterules>
+        <!-- the first period of Ordinary Time beginning on the Monday after the Baptism 
+          of the Lord. Either way, the point is the same. The next Sunday is still reckoned 
+          "The Second Sunday in Ordinary Time," because it is the Sunday of the second 
+          week in Ordinary Time. -->
         <weeks-after nr="$nr_i">
           <weekday-after day="Sunday">
             <date day="6" month="1"/>

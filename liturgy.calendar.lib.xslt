@@ -111,7 +111,7 @@
     </xsl:variable>
     <xsl:variable name="d">
       <xsl:choose>
-        <xsl:when test="$r &gt; $t">
+        <xsl:when test="$r &gt;= $t">
           <xsl:value-of select="$t - $r + 7"/>
         </xsl:when>
         <xsl:otherwise>
@@ -124,14 +124,13 @@
       <xsl:number value="$d"/>
       <xsl:text>D</xsl:text>
     </xsl:variable>
+    <xsl:variable name="newdate" select="xs:date($date) + xs:dayTimeDuration($daysDuration)"/>
+    <xsl:variable name="result" select="replace(format-date($newdate, '[Y0001]-[M01]-[D01]','en',(),()),'(\[.*\])?(.+)','$2')"/>
     <!--xsl:message><xsl:value-of select="concat($t,'|',$r,'|',$d)"/></xsl:message-->
     <date>
-      <xsl:variable name="newdate" select="xs:date($date) + xs:dayTimeDuration($daysDuration)"/>
-      <xsl:value-of
-        select="replace(format-date($newdate, '[Y0001]-[M01]-[D01]','en',(),()),'(\[.*\])?(.+)','$2')"
-      />
+      <xsl:value-of select="$result"/>
     </date>
-    <xsl:message>/weekday-after</xsl:message>
+    <xsl:message>/weekday-after <xsl:value-of select="@day"/> after <xsl:value-of select="$date"/> = <xsl:value-of select="$result"/></xsl:message>
   </xsl:template>
   <xsl:template match="weekday-before">
     <!-- INPUT @day : weekday string, e.g. "Sunday"
@@ -527,8 +526,11 @@
     <xsl:variable name="date2">
       <xsl:apply-templates select="*[2]"/>
     </xsl:variable>
-    <xsl:value-of select="(floor(fn:days-from-duration(xs:date($date2) - xs:date($date1)) div 7))"/>
-    <xsl:message>/count-weeks-between</xsl:message>
+    <xsl:variable name="result">
+      <xsl:value-of select="(floor(fn:days-from-duration(xs:date($date2) - xs:date($date1)) div 7))"/>
+    </xsl:variable>
+    <xsl:value-of select="$result"/>
+    <xsl:message>/count-weeks-between <xsl:value-of select="$date1"/> and <xsl:value-of select="$date2"/> = <xsl:value-of select="$result"/></xsl:message>
   </xsl:template>
   <xsl:template match="day-number">
     <!-- INPUT : * : date operator or literal date string  <xsl:text>yyyy-mm-dd</xsl:text>

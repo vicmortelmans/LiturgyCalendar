@@ -165,6 +165,7 @@
                 <!-- multiple <liturgicaldays> may have the same @coordinates -->
                 <xsl:if test="$liturgicalday">
                   <xsl:variable name="rank" select="$liturgicalday/rank/@nr"/>
+                  <xsl:variable name="color" select="$liturgicalday/color"/>
                   <xsl:message>rank = <xsl:value-of select="$rank"/></xsl:message>
                   <xsl:variable name="precedence">
                     <xsl:choose>
@@ -187,7 +188,7 @@
                       select="format-number(10000 * $rank + 100 * $precedence + $overlap-priority,'000000')"/>
                     <coordinates set="{@set}" liturgicalday="{$liturgicalday/name}" rank="{$rank}"
                       precedence="{$precedence}" overlap-priority="{$overlap-priority}"
-                      score="{$score}" coincideswith="{$liturgicalday/coincideswith}">
+                      score="{$score}" coincideswith="{$liturgicalday/coincideswith}" color="{$color}">
                       <xsl:value-of select="replace($coordinates,'X','Y')"/>
                     </coordinates>
                   </xsl:if>

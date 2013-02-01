@@ -52,6 +52,7 @@
                 <rank>
                     <xsl:value-of select="string($result//coordinates[1]/@rank)"/>
                 </rank>
+                <color></color>
             </day>
             <xsl:call-template name="day">
                 <xsl:with-param name="date" select="$date + xs:dayTimeDuration('P1D')"/>
