@@ -154,7 +154,7 @@
       evaluated)</xsl:message>
     <xsl:variable name="daterules">
       <weekday-after day="{@day}">
-        <days-before nr="6">
+        <days-before nr="7">
           <xsl:apply-templates/>
         </days-before>
       </weekday-after>
