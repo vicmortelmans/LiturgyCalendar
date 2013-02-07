@@ -4,6 +4,10 @@
 
   <xsl:strip-space elements="coordinaterules"/>
 
+  <!-- after updating this file, increment the @version attribute in the 
+       custom ruleset files that include these <liturgicaldays>, if you
+       want to refresh the cache -->
+  
   <!--
        RENDERERS
                  -->
